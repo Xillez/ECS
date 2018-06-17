@@ -1,0 +1,24 @@
+#CMAKE FOR GLFW GLEW 
+cmake_minimum_required(VERSION 3.1)
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(PROJECT_NAME "Framework")
+set(PROJECT_VERSION "v0.1")
+
+project(${PROJECT_NAME} VERSION 0.1.0 LANGUAGES CXX)
+
+#Set the output to the bin folder where cmake was executed
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+
+# Add all cpp files used in the program
+add_executable(${PROJECT_NAME} 
+	#src
+	${PROJECT_SOURCE_DIR}/source/src/main.cpp 
+	
+	#entity
+	${PROJECT_SOURCE_DIR}/source/entity/Entity.cpp
+
+	#components
+	${PROJECT_SOURCE_DIR}/source/components/IComponent.cpp
+)
