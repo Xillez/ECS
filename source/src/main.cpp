@@ -1,11 +1,20 @@
+#include "../ecs/system/EntityManager.hpp"
+
 #include <stdio.h>
 #include <iostream>
 
 int main(int argc, char const *argv[])
-{	
+{
+	EntityManager entityMgr;
+
+
 	while(true)
 	{
-		//map->update(dt);
+		//TestComponent* comp = new TestComponent();
+
+		//Entity entity;
+		//entity.registerComponent(comp);
+		//entity.update(dt);
 	}
 	return 0;
 }
