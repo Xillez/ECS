@@ -1,4 +1,4 @@
-#include "../ecs/system/EntityManager.hpp"
+#include "../ecs/system/EntityMgr.hpp"
 
 #include <stdio.h>
 #include <iostream>
@@ -6,7 +6,6 @@
 int main(int argc, char const *argv[])
 {
 	EntityManager entityMgr;
-
 
 	while(true)
 	{
