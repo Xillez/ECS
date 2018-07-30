@@ -1,25 +1,28 @@
 #pragma once
 
+#include "../system/typedef.hpp"
 #include "../components/Component.hpp"
 
 #include <stdio.h>
 #include <string>
 #include <vector>
 
-typedef unsigned int EntityID;
-
-template<typename T>
-class BaseEntity
+/**
+ * @brief Generic Entity with components.
+ */
+class Entity
 {
 public:
+	
 	/**
-	 * @brief Constructor for BaseEntity
-	 * 
-	 * @param component 
-	 * @return true 
-	 * @return false 
+	 * @brief Entity constructor.
 	 */
-	BaseEntity();
+	Entity();
+
+	/**
+	 * @brief Entity deconstructor.
+	 */
+	~Entity();
 
 	/**
 	 * @brief A function for registering components.
@@ -28,7 +31,17 @@ public:
 	 * 
 	 * @return true if added, false otherwise
 	 */
-	bool registerComponent(BaseComponent* component);
+	bool registerComponent(Component* component);
+
+	/**
+	 * @brief updates state for next frame.
+	 */
+	virtual void update();
+
+	/**
+	 * @brief Draw the entity and possible subcomponents.
+	 */
+	virtual void draw();
 	
 	/**
 	 * @brief A function for getting id
@@ -47,38 +60,7 @@ public:
 protected:
 	static const EntityID id;
 
-	std::vector<BaseComponent*> componentList;
-
-	//static EntityID nextID();
-};
-
-/**
- * @brief Generic Entity with components.
- */
-class Entity : public BaseEntity<Entity>
-{
-public:
-	
-	/**
-	 * @brief Entity constructor.
-	 */
-	Entity();
-
-	/**
-	 * @brief Entity deconstructor.
-	 */
-	~Entity();
-
-	/**
-	 * @brief updates state for next frame.
-	 */
-	void update();
-
-	/**
-	 * @brief Draw the entity and possible subcomponents.
-	 */
-
-	void draw();
+	std::vector<Component*> componentList;
 			
 private:
 	//

@@ -2,9 +2,14 @@
 
 #include <iostream>
 
-// ################ BaseEntity ################
+// ################ Entity ################
 
-bool BaseEntity::registerComponent(BaseComponent* component)
+Entity::Entity()
+{
+	//
+}
+
+bool Entity::registerComponent(BaseComponent* component)
 {
 	// If this is a valid component
 	if (component)
@@ -19,19 +24,6 @@ bool BaseEntity::registerComponent(BaseComponent* component)
 	return (component);
 }
 
-
-
-//auto BaseEntity::nextID() -> EntityID
-//{
-//	id++;
-//}
-
-// ################ Entity ################
-Entity::Entity()
-{
-	//
-}
-
 auto Entity::update() -> void
 {
 	//
@@ -41,3 +33,4 @@ auto Entity::draw() -> void
 {
 	std::cout << "Entity!\n";
 }
+

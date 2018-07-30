@@ -1,12 +1,30 @@
 #include "Component.hpp"
 
-//template<typename T>
-//component::Component<T>::Component()
-//{
-//	//
-//}
+#include "../system/EntityMgr.hpp"
 
-//auto components::IComponent::init(game::Object* parent) -> void
-//{
-//	this->parent = parent;
-//}
+Component::Component()
+{
+	//
+}
+
+void Component::init(const EntityID& parent)
+{
+	this->parentID = parent;
+}
+
+// Virtual.
+void Component::update(float dt)
+{
+    //
+}
+
+// Virtual.
+void Component::draw()
+{
+    //
+}
+
+ComponentID Component::getId()
+{
+    return this->id;
+}
