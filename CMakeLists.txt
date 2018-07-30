@@ -20,7 +20,7 @@ add_executable(${PROJECT_NAME}
 	#${PROJECT_SOURCE_DIR}/source/datastruct/Datastruct.cpp 
 	
 	#ecs
-	${PROJECT_SOURCE_DIR}/source/ecs/system/EntityManager.cpp
+	${PROJECT_SOURCE_DIR}/source/ecs/system/EntityMgr.cpp
 	#${PROJECT_SOURCE_DIR}/source/entity/Entity.cpp
 	#${PROJECT_SOURCE_DIR}/source/components/Component.cpp
 )
