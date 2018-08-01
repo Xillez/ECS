@@ -30,6 +30,11 @@ public:
 	virtual void draw();
 
 	/**
+	 * @brief Make ready for removal. 
+	 */
+	virtual void remove();
+
+	/**
 	 * @brief Get the Component id.
 	 * 
 	 * @return ComponentID - The id of the component.

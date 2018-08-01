@@ -19,6 +19,12 @@ void Component::update(float dt)
 }
 
 // Virtual.
+void Component::remove()
+{
+    //
+}
+
+// Virtual.
 void Component::draw()
 {
     //
