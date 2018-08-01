@@ -42,6 +42,11 @@ public:
 	 * @brief Draw the entity and possible subcomponents.
 	 */
 	virtual void draw();
+
+	/**
+	 * @brief Remove the entity and all associated components if not reused.
+	 */
+	virtual void remove();
 	
 	/**
 	 * @brief A function for getting id

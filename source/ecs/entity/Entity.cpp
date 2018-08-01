@@ -9,7 +9,7 @@ Entity::Entity()
 	//
 }
 
-bool Entity::registerComponent(BaseComponent* component)
+bool Entity::registerComponent(Component* component)
 {
 	// If this is a valid component
 	if (component)
@@ -24,13 +24,18 @@ bool Entity::registerComponent(BaseComponent* component)
 	return (component);
 }
 
-auto Entity::update() -> void
+void Entity::update()
 {
 	//
 }
 
-auto Entity::draw() -> void
+void Entity::draw()
 {
 	std::cout << "Entity!\n";
+}
+
+void Entity::remove()
+{
+	//
 }
 
