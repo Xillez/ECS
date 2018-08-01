@@ -29,7 +29,7 @@ public:
 	 * 
 	 * @param component - component added to current object.
 	 * 
-	 * @return true if added, false otherwise
+	 * @return true if added, false otherwise.
 	 */
 	bool registerComponent(Component* component);
 
@@ -49,23 +49,22 @@ public:
 	virtual void remove();
 	
 	/**
-	 * @brief A function for getting id
+	 * @brief A function for getting id.
 	 * 
 	 * @return id - id for entity.
 	 */
 	int getID();
 	
 	/**
-	 * @brief A function for setting id
+	 * @brief A function for setting id.
 	 * 
 	 * @param id - requested id for entity.
 	 */
 	void setID(int id);
 
 protected:
-	static const EntityID id;
-
-	std::vector<Component*> componentList;
+	static const EntityID id = 0;			//!< Id of Entity.
+	std::vector<Component*> componentList;	//!< List of Components.
 			
 private:
 	//

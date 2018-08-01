@@ -27,16 +27,16 @@ public:
     ComponentID createComponent();
 
     /**
-     * @brief Get the Component by ID
+     * @brief Get the Component by ID.
      * 
-     * @param id - Id of given component
+     * @param id - Id of given component.
      * 
      * @return Component* - Pointer to component found. If nothing found, nullptr returned.
      */
     Component* getComponentByID(ComponentID id);
 
     /**
-     * @brief Get the Component ID
+     * @brief Get the Component ID.
      * 
      * @param component - Component to get id of.
      * 

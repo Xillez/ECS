@@ -42,6 +42,6 @@ public:
 	ComponentID getId();
 	
 private: 
-	ComponentID id;				//!< Component's id.
-	unsigned int parentID;		//!< Parent object exists inside.
+	ComponentID id;			//!< Component's id.
+	EntityID parentID;		//!< Parent id exists inside.
 };

@@ -27,16 +27,16 @@ public:
     EntityID createEntity();
 
     /**
-     * @brief Get the Entity by ID
+     * @brief Get the Entity by ID.
      * 
-     * @param id - id of given entity
+     * @param id - id of given entity.
      * 
      * @return Entity* - Pointer to entity found. If nothing found, nullptr returned.
      */
     Entity* getEntityByID(EntityID id);
 
     /**
-     * @brief Get the Entity ID
+     * @brief Get the Entity ID.
      * 
      * @param entity - entity to get id of.
      * 
