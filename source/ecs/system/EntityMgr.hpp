@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 
 #define PLAYER_ENTITY_ID 1
 
