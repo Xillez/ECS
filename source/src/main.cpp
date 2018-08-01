@@ -5,7 +5,7 @@
 
 int main(int argc, char const *argv[])
 {
-	EntityManager entityMgr;
+	EntityMgr entityMgr;
 
 	while(true)
 	{
