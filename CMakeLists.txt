@@ -21,6 +21,8 @@ add_executable(${PROJECT_NAME}
 	
 	#ecs
 	${PROJECT_SOURCE_DIR}/source/ecs/system/EntityMgr.cpp
-	#${PROJECT_SOURCE_DIR}/source/entity/Entity.cpp
-	#${PROJECT_SOURCE_DIR}/source/components/Component.cpp
+	${PROJECT_SOURCE_DIR}/source/ecs/system/ComponentMgr.cpp
+
+	${PROJECT_SOURCE_DIR}/source/ecs/entity/Entity.cpp
+	${PROJECT_SOURCE_DIR}/source/ecs/component/Component.cpp
 )

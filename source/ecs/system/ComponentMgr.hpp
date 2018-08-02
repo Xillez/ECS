@@ -1,6 +1,6 @@
 #pragma once
 #include "typedef.hpp"
-#include "../components/Component.hpp"
+#include "../component/Component.hpp"
 
 #include <vector>
 #include <unordered_map>
@@ -22,8 +22,11 @@ public:
     /**
      * @brief Create new Component. The component's id goes from 2 and upwards. 1 is Player component id.
      * 
-     * @return ComponentID - The ID to the newly created component.
+     * @tparam Class - The ubclass of Component.
+     * 
+     @return ComponentID - The ID to the newly created component.
      */
+    template<typename Class>
     ComponentID createComponent();
 
     /**

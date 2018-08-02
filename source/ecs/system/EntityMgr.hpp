@@ -22,8 +22,11 @@ public:
     /**
      * @brief Create new Entity. The entity's id goes from 2 and upwards. 1 is Player entity id.
      * 
+     * @tparam Class - The subclass of Entity.
+     * 
      * @return EntityID - The ID to the newly created entity.
      */
+    template<typename Class>
     EntityID createEntity();
 
     /**
@@ -50,6 +53,26 @@ public:
      * @param id - ID of entity to be removed.
      */
     void removeEntityByID(EntityID id);
+
+    /**
+     * @brief A built-in foreach loop calling given function for every object registered (with respective id).
+     * 
+     * @param func - Function to call for each object. Function signature: void(*func)(EntityID, Entity*).
+     */
+    void forEach(std::function<void(EntityID, Entity*)> func);
+
+    /**
+     * @brief Draw all entities. 
+     */
+    void drawAllEntities();
+
+    /**
+     * @brief Update all entities.
+     * 
+     * @param dt - How many seconds since last update/frame.
+     */
+    void update(float dt);
+
 protected:
     //
 private:

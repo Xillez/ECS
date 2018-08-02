@@ -1,11 +1,13 @@
 #pragma once
 
 #include "../system/typedef.hpp"
-#include "../components/Component.hpp"
+#include "../component/Component.hpp"
 
+#include <iostream>
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include <functional>
 
 /**
  * @brief Generic Entity with components.
@@ -13,11 +15,12 @@
 class Entity
 {
 public:
-	
 	/**
 	 * @brief Entity constructor.
+	 * 
+	 * @param id - Id of new entity.
 	 */
-	Entity();
+	Entity(EntityID id);
 
 	/**
 	 * @brief Entity deconstructor.
@@ -25,18 +28,18 @@ public:
 	~Entity();
 
 	/**
-	 * @brief A function for registering components.
+	 * @brief Add a component.
 	 * 
-	 * @param component - component added to current object.
+	 * @param id - component id to be registered.
 	 * 
 	 * @return true if added, false otherwise.
 	 */
-	bool registerComponent(Component* component);
+	virtual bool addComponent(ComponentID id);
 
 	/**
 	 * @brief updates state for next frame.
 	 */
-	virtual void update();
+	virtual void update(float dt);
 
 	/**
 	 * @brief Draw the entity and possible subcomponents.
@@ -54,18 +57,10 @@ public:
 	 * @return id - id for entity.
 	 */
 	int getID();
-	
-	/**
-	 * @brief A function for setting id.
-	 * 
-	 * @param id - requested id for entity.
-	 */
-	void setID(int id);
 
 protected:
-	static const EntityID id = 0;			//!< Id of Entity.
-	std::vector<Component*> componentList;	//!< List of Components.
-			
+	std::vector<ComponentID> componentIDs;	//!< List of Component IDs.	
+
 private:
-	//
+	const EntityID ID;						//!< Id of Entity.
 };

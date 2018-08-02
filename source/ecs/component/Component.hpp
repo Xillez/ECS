@@ -9,8 +9,10 @@ class Component
 public:
 	/**
 	 * @brief Constructor of Component.
+	 * 
+	 * @param id - Id of new component.
 	 */
-	Component();
+	Component(ComponentID id);
 
 	/**
 	 * @brief initialize function to give component parent object for updating and possibly drawing.
@@ -39,9 +41,9 @@ public:
 	 * 
 	 * @return ComponentID - The id of the component.
 	 */
-	ComponentID getId();
+	ComponentID getID();
 	
 private: 
-	ComponentID id;			//!< Component's id.
+	const ComponentID ID;			//!< Component's id.
 	EntityID parentID;		//!< Parent id exists inside.
 };

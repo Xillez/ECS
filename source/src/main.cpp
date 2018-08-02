@@ -1,3 +1,4 @@
+#include "../ecs/entity/Entity.hpp"
 #include "../ecs/system/EntityMgr.hpp"
 
 #include <stdio.h>
@@ -6,14 +7,16 @@
 int main(int argc, char const *argv[])
 {
 	EntityMgr entityMgr;
+	entityMgr.createEntity<Entity>();
 
-	while(true)
-	{
-		//TestComponent* comp = new TestComponent();
+	entityMgr.drawAllEntities();
+	//entityMgr.forEach([](EntityID id, Entity* entity){
+	//	entity->draw();
+	//});
 
-		//Entity entity;
-		//entity.registerComponent(comp);
-		//entity.update(dt);
-	}
+	//while(true)
+	//{
+	//	
+	//}
 	return 0;
 }
