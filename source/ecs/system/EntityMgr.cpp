@@ -17,7 +17,7 @@ EntityID EntityMgr::createEntity()
         this->nextID++;                             // Ready for next entity registration.
         return this->nextID - 1;                    // Return the new entities id.
     }
-    std::cout << "Accepts only Entity and subclasses if it!\n";
+    std::cout << "Accepts only Entity and subclasses of it!\n";
     return 0;
 }
 
