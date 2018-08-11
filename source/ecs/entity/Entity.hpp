@@ -25,7 +25,7 @@ public:
 	/**
 	 * @brief Entity deconstructor.
 	 */
-	~Entity();
+	virtual ~Entity();
 
 	/**
 	 * @brief Add a component.

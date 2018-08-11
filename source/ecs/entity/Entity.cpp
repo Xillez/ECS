@@ -9,6 +9,12 @@ Entity::Entity(EntityID id) : ID(id)
 }
 
 //virtual
+Entity::~Entity()
+{
+	//
+}
+
+//virtual
 bool Entity::addComponent(ComponentID id)
 {
 	auto it = std::find(this->componentIDs.begin(), this->componentIDs.end(), id);    // Does the id exist.
