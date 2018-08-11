@@ -5,12 +5,12 @@ EntityMgr::EntityMgr()
     //
 }
 
-template<typename Class>
+template<class Tclass>
 EntityID EntityMgr::createEntity()
 {
-    if (std::is_base_of<Entity, Class>::value)      // Does class extend Entity?
+    if (std::is_base_of<Entity, Tclass>::value)      // Does class extend Entity?
     {
-        Entity* temp = new Class(this->nextID);     // Make new Entity with new ID.
+        Entity* temp = new Tclass(this->nextID);     // Make new Entity with new ID.
         this->entityIDs.push_back(this->nextID);    // Add id.
         this->entities[this->nextID] = temp;        // Save entity pointer.
         temp = nullptr;

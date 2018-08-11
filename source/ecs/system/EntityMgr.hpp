@@ -5,6 +5,7 @@
 #include <vector>
 #include <unordered_map>
 #include <algorithm>
+#include <type_traits>
 
 #define PLAYER_ENTITY_ID 1
 
@@ -26,7 +27,7 @@ public:
      * 
      * @return EntityID - The ID to the newly created entity.
      */
-    template<typename Class>
+    template<class Tclass>
     EntityID createEntity();
 
     /**
