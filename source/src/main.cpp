@@ -1,4 +1,4 @@
-#include "../ecs/entity/Entity.hpp"
+//#include "../ecs/entity/Entity.hpp"
 #include "../ecs/system/EntityMgr.hpp"
 
 #include <stdio.h>
