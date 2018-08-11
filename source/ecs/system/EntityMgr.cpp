@@ -8,9 +8,9 @@ EntityMgr::EntityMgr()
 template<class Tclass>
 EntityID EntityMgr::createEntity()
 {
-    if (std::is_base_of<Entity, Tclass>::value)      // Does class extend Entity?
+    if (std::is_base_of<Entity, Tclass>::value)     // Does class extend Entity?
     {
-        Entity* temp = new Tclass(this->nextID);     // Make new Entity with new ID.
+        Entity* temp = new Tclass(this->nextID);    // Make new Entity with new ID.
         this->entityIDs.push_back(this->nextID);    // Add id.
         this->entities[this->nextID] = temp;        // Save entity pointer.
         temp = nullptr;
@@ -25,8 +25,8 @@ Entity* EntityMgr::getEntityByID(EntityID id)
 {
     // Has the given id been registered.
     if (std::find(this->entityIDs.begin(), this->entityIDs.end(), id) == this->entityIDs.end())
-        return 0;                               // Found nothing.
-    return this->entities[id];                  // Found entity.
+        return nullptr;                             // Found nothing.
+    return this->entities[id];                       // Found entity.
 }
 
 EntityID EntityMgr::getEntityID(Entity* entity)
