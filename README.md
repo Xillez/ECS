@@ -12,7 +12,7 @@ Entity Component System.
 
 - CMake - https://cmake.org/download/
 - Make - http://gnuwin32.sourceforge.net/packages/make.htm
-- Doxygen - http://www.stack.nl/~dimitri/doxygen/download.html
+- (DISABLED!) Doxygen - http://www.stack.nl/~dimitri/doxygen/download.html
 
 ### Installation / Usage
 1. Install linux (supports only linux for now).
