@@ -2,6 +2,8 @@
 
 # User defined ignores
 
+main.cpp
+main.zip
 .vscode/
 lib/
 include/
