@@ -39,7 +39,7 @@ void Entity::update(float dt)
 //virtual
 void Entity::draw()
 {
-	std::cout << "Entity " << this->ID << "!\n";
+	std::cout << "Entity " << this->ID << ", ClassName: " << this->getClassName() << "!\n";
 }
 
 //virtual
@@ -51,4 +51,23 @@ void Entity::remove()
 int Entity::getID()
 {
 	return this->ID;
+}
+
+//virtual
+std::string Entity::getClassName(bool removeDigits)
+{
+	std::string name = typeid(*this).name();	// Get dirty class name.
+	if (removeDigits)							// Should remove digits?
+	{
+		int i = 0;
+		while (isdigit(name.at(i))) i++;		// Find where digits end.
+		name.erase(name.begin(), name.begin() + i);	// Remove digits.
+	}
+	return name;								// Return pretty name.
+}
+
+//virtual
+bool Entity::destroy()
+{
+    return true;
 }

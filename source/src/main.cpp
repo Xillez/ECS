@@ -4,12 +4,41 @@
 #include <stdio.h>
 #include <iostream>
 
+class TestEntity : public Entity
+{
+	public:
+		TestEntity(EntityID id) : Entity(id)
+		{
+			//
+		};
+
+		virtual std::string getBottomClassName(bool removeDigits = true)
+		{
+			std::string name = typeid(*this).name();
+			if (typeid(*this).__is_pointer_p())
+				name.erase(name.begin(), name.begin() + 1);
+			if (removeDigits)
+			{
+				int i = 0;
+				while (isdigit(name.at(i))) i++;
+				name.erase(name.begin(), name.begin() + i);
+			}
+			return name;
+		}
+};
+
 int main(int argc, char const *argv[])
 {
 	EntityMgr entityMgr;
-	entityMgr.createEntity<Entity>();
+
+	for (int i = 0; i < 10; i++)
+	{
+		entityMgr.createEntity<Entity>();
+		entityMgr.createEntity<TestEntity>();
+	}
 
 	entityMgr.drawAllEntities();
+	
 	//entityMgr.forEach([](EntityID id, Entity* entity){
 	//	entity->draw();
 	//});
@@ -18,5 +47,5 @@ int main(int argc, char const *argv[])
 	//{
 	//	
 	//}
-	return 0;
+	return !entityMgr.destroyAll();
 }

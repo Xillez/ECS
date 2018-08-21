@@ -58,6 +58,21 @@ public:
 	 */
 	int getID();
 
+	/**
+	 * @brief Get the name of the current class.
+	 * 
+	 * @return std::string - Name of the current class.
+	 */
+	virtual std::string getClassName(bool removeDigit = true);
+
+	/**
+	 * @brief Used for destroying an entity.
+	 * 
+	 * @return true - Entity was destroyed.
+	 * @return false - Failed to destroy.
+	 */
+	virtual bool destroy();
+
 protected:
 	std::vector<ComponentID> componentIDs;	//!< List of Component IDs.	
 

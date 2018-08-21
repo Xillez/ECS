@@ -23,12 +23,25 @@ public:
     /**
      * @brief Create new Entity. The entity's id goes from 2 and upwards. 1 is Player entity id.
      * 
-     * @tparam Class - The subclass of Entity.
+     * @tparam Class - The subclass of Entity to be made.
      * 
      * @return EntityID - The ID to the newly created entity.
      */
-    template<class Tclass>
-    EntityID createEntity();
+    template<class Tclass>       // In header because of cmake undefined error! DO NOT MOVE BACK!!
+    EntityID createEntity()
+    {
+        if (std::is_base_of<Entity, Tclass>::value)     // Does class extend Entity?
+        {
+            Entity* temp = new Tclass(this->nextID);    // Make new Entity with new ID.
+            this->entityIDs.push_back(this->nextID);    // Add id.
+            this->entities[this->nextID] = temp;        // Save entity pointer.
+            temp = nullptr;
+            this->nextID++;                             // Ready for next entity registration.
+            return this->nextID - 1;                    // Return the new entities id.
+        }
+        std::cout << "Accepts only Entity and subclasses of it!\n";
+        return 0;
+    }
 
     /**
      * @brief Get the Entity by ID.
@@ -73,6 +86,14 @@ public:
      * @param dt - How many seconds since last update/frame.
      */
     void update(float dt);
+
+    /**
+     * @brief Destroys all entities and readys for destruction.
+     * 
+     * @return true - All Entities was destroyed.
+	 * @return false - Failed to destroy entities. 
+     */
+    bool destroyAll();
 
 protected:
     //

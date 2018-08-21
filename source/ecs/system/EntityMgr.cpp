@@ -5,7 +5,7 @@ EntityMgr::EntityMgr()
     //
 }
 
-template<class Tclass>
+/*template<class Tclass>
 EntityID EntityMgr::createEntity()
 {
     if (std::is_base_of<Entity, Tclass>::value)     // Does class extend Entity?
@@ -19,14 +19,14 @@ EntityID EntityMgr::createEntity()
     }
     std::cout << "Accepts only Entity and subclasses of it!\n";
     return 0;
-}
+}*/
 
 Entity* EntityMgr::getEntityByID(EntityID id)
 {
     // Has the given id been registered.
     if (std::find(this->entityIDs.begin(), this->entityIDs.end(), id) == this->entityIDs.end())
         return nullptr;                             // Found nothing.
-    return this->entities[id];                       // Found entity.
+    return this->entities[id];                      // Found entity.
 }
 
 EntityID EntityMgr::getEntityID(Entity* entity)
@@ -64,4 +64,9 @@ void EntityMgr::update(float dt)
 {
     for(auto& entity : this->entities)          // Run through every entity.
         entity.second->update(dt);              // Call draw on entity.
+}
+
+bool EntityMgr::destroyAll()
+{
+    return true;
 }
