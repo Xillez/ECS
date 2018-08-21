@@ -21,11 +21,11 @@ add_executable(${PROJECT_NAME}
 	
 	#ecs - system
 	${PROJECT_SOURCE_DIR}/source/ecs/system/EntityMgr.cpp
-	${PROJECT_SOURCE_DIR}/source/ecs/system/ComponentMgr.cpp
+	#${PROJECT_SOURCE_DIR}/source/ecs/system/ComponentMgr.cpp
 
 	#ecs - entity
 	${PROJECT_SOURCE_DIR}/source/ecs/entity/Entity.cpp
 
 	#ecs - component
-	${PROJECT_SOURCE_DIR}/source/ecs/component/Component.cpp
+	#${PROJECT_SOURCE_DIR}/source/ecs/component/Component.cpp
 )
