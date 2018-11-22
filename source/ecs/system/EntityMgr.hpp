@@ -62,6 +62,16 @@ public:
     EntityID getEntityID(Entity* entity);
 
     /**
+     * @brief Get the Entity By Type
+     * 
+     * @tparam Tclass 
+     * @return std::vector<Entity> 
+     */
+    template<class Tclass>    
+    std::vector<Entity> getEntityByType();
+
+
+    /**
      * @brief Removes an entity by ID, all components without an owner gets removed aswell.
      * 
      * @param id - ID of entity to be removed.

@@ -66,6 +66,13 @@ public:
 	virtual std::string getClassName(bool removeDigit = true);
 
 	/**
+	 * @brief Get the name of the lowest class in the hierarchy.
+	 * 
+	 * @return std::string - Name of the lowest class in the hierarchy.
+	 */
+	virtual std::string getLowestTypeName(bool removeDigit = true);
+
+	/**
 	 * @brief Used for destroying an entity.
 	 * 
 	 * @return true - Entity was destroyed.
