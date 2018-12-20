@@ -1,22 +1,21 @@
 # Set cmake minimum
-cmake_minimum_required(VERSION 3.11)
-
-#set(BUILD_TYPE_DEBUG "Debug")
-#set(BUILD_TYPE_RELEASE "Release")
-#set(CMAKE_BUILD_TYPE ${BUILD_TYPE_DEBUG})
-#set(BUILD_TYPE ${BUILD_TYPE_DEBUG})
-#set(PROJECT_VERSION "v0.1")
+cmake_minimum_required(VERSION 3.10)
 
 # Set cmake options
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-#set(CMAKE_C_COMPILER gcc)
-#set(CMAKE_CXX_COMPILER g++)
-set(CMAKE_GENERATOR "Unix Makefiles" CACHE INTERNAL "" FORCE)
+set(CMAKE_C_COMPILER gcc)
+set(CMAKE_CXX_COMPILER g++)
+set(CMAKE_GENERATOR "MinGW Makefiles" CACHE INTERNAL "" FORCE)
+set(CMAKE_BUILD_TYPE "Debug")
 
-# Set project name
+# Set project name, project version and wether it's a debugor relese build
 set(PROJECT_NAME "ecs")
+set(PROJECT_VERSION "v0.1")
+set(PROJECT_VERSION_MAYOR 0)
+set(PROJECT_VERSION_MINOR 1)
+set(BUILD_TYPE ${CMAKE_BUILD_TYPE})
 
 # Set project name
 project(${PROJECT_NAME})
@@ -44,17 +43,7 @@ configure_file(
 # Add all cpp files used in the program
 add_executable(${PROJECT_NAME} 
 	#src
-  ${PROJECT_SOURCE_DIR}/src/main.cpp
-  
-  # Components
-  ${PROJECT_SOURCE_DIR}/ecs/component/Component.cpp
-
-  # Entities
-  ${PROJECT_SOURCE_DIR}/ecs/entity/Entity.cpp
-
-  # Managers
-  ${PROJECT_SOURCE_DIR}/ecs/system/ComponentMgr.cpp
-  ${PROJECT_SOURCE_DIR}/ecs/system/EntityMgr.cpp
+	${PROJECT_SOURCE_DIR}/src/main2.cpp
 )
 
 #ADD_CUSTOM_TARGET(debug

@@ -1,5 +1,6 @@
 //#include "../ecs/entity/Entity.hpp"
 #include "../ecs/system/EntityMgr.hpp"
+#include "../config/Config.hpp"
 
 #include <stdio.h>
 #include <iostream>
@@ -29,6 +30,13 @@ class TestEntity : public Entity
 
 int main(int argc, char const *argv[])
 {
+	#if IS_BUILD_TYPE_DEBUG()
+		printf("DEBUG BUILD!\n");
+	#endif
+	#if defined(PROJECT_VERSION)
+		printf("Project version: %s\n", PROJECT_VERSION);
+	#endif
+
 	EntityMgr entityMgr;
 
 	for (int i = 0; i < 10; i++)
