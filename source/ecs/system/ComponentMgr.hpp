@@ -27,7 +27,7 @@ public:
      @return ComponentID - The ID to the newly created component.
      */
     template<typename Class>
-    ComponentID createComponent();
+    ComponentID CreateComponent();
 
     /**
      * @brief Get the Component by ID.
@@ -36,7 +36,7 @@ public:
      * 
      * @return Component* - Pointer to component found. If nothing found, nullptr returned.
      */
-    Component* getComponentByID(ComponentID id);
+    Component* GetComponentByID(ComponentID id);
 
     /**
      * @brief Get the Component ID.
@@ -45,19 +45,19 @@ public:
      * 
      * @return ComponentID - ID of component. 0 if not found.
      */
-    ComponentID getComponentID(Component* component);
+    //ComponentID GetComponentID(Component* component);
 
     /**
      * @brief Removes an component by ID, all components without an owner gets removed aswell.
      * 
      * @param id - ID of component to be removed.
      */
-    void removeComponentByID(ComponentID id);
+    void RemoveComponentByID(ComponentID id);
 protected:
     //
 private:
     int nextID = INPUT_COMPONENT_ID + 1;
 
     std::vector<ComponentID> componentIDs;      //!< A vector of all components registered.
-    std::unordered_map<ComponentID, Component*> components;     //!< A unordered map mapping components to ids.
+    std::unordered_map<ComponentID, Component*> components;     //!< A unordered map, mapping components to ids.
 };

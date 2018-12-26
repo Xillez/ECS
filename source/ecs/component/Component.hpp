@@ -19,29 +19,29 @@ public:
 	 *  
 	 * @param parent - Parent object I exists inside.
 	 */
-	virtual void init(const EntityID& parent);
+	virtual void Initialize(const EntityID& parent);
 
 	/**
 	 * @brief Update function for components. 
 	 */
-	virtual void update(float dt);
+	virtual void Update(float dt);
 
 	/**
 	 * @brief Draw the mesh on the screen.
 	 */
-	virtual void draw();
+	virtual void Draw();
 
 	/**
 	 * @brief Make ready for removal. 
 	 */
-	virtual void remove();
+	virtual void Destroy();
 
 	/**
 	 * @brief Get the Component id.
 	 * 
 	 * @return ComponentID - The id of the component.
 	 */
-	ComponentID getID();
+	ComponentID GetID();
 	
 private: 
 	const ComponentID ID;			//!< Component's id.

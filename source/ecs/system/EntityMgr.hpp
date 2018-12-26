@@ -7,7 +7,11 @@
 #include <algorithm>
 #include <type_traits>
 
-#define PLAYER_ENTITY_ID 1
+// ################################################################################################
+// #                                                                                              #
+// #                                       Entity Management                                      #
+// #                                                                                              #
+// ################################################################################################
 
 /**
  * @brief Entity manager class. Manages entities.
@@ -28,16 +32,16 @@ public:
      * @return EntityID - The ID to the newly created entity.
      */
     template<class Tclass>       // In header because of cmake undefined error! DO NOT MOVE BACK!!
-    EntityID createEntity()
+    EntityID CreateEntity()
     {
         if (std::is_base_of<Entity, Tclass>::value)     // Does class extend Entity?
         {
-            Entity* temp = new Tclass(this->nextID);    // Make new Entity with new ID.
-            this->entityIDs.push_back(this->nextID);    // Add id.
-            this->entities[this->nextID] = temp;        // Save entity pointer.
+            EntityID tempID = this->NextID();       // Ready for next entity registration.
+            Entity* temp = new Tclass(tempID);      // Make new Entity with new ID.
+            this->entityIDs.push_back(tempID);      // Add id.
+            this->entities[tempID] = temp;          // Save entity pointer.
             temp = nullptr;
-            this->nextID++;                             // Ready for next entity registration.
-            return this->nextID - 1;                    // Return the new entities id.
+            return this->entities[tempID]->GetID(); // Return the new entities id.
         }
         std::cout << "Accepts only Entity and subclasses of it!\n";
         return 0;
@@ -50,7 +54,7 @@ public:
      * 
      * @return Entity* - Pointer to entity found. If nothing found, nullptr returned.
      */
-    Entity* getEntityByID(EntityID id);
+    Entity* GetEntityByID(EntityID id);
 
     /**
      * @brief Get the Entity ID.
@@ -59,16 +63,17 @@ public:
      * 
      * @return EntityID - ID of entity. 0 if not found.
      */
-    EntityID getEntityID(Entity* entity);
+    EntityID GetEntityID(Entity* entity);
 
     /**
      * @brief Get the Entity By Type
      * 
-     * @tparam Tclass 
+     * @tparam Tclass - Class extending Entity.
+     * 
      * @return std::vector<Entity> 
      */
     template<class Tclass>    
-    std::vector<Entity> getEntityByType();
+    std::vector<Entity> GetEntityByType();
 
 
     /**
@@ -76,26 +81,26 @@ public:
      * 
      * @param id - ID of entity to be removed.
      */
-    void removeEntityByID(EntityID id);
+    void DestroyEntityByID(EntityID id);
 
     /**
-     * @brief A built-in foreach loop calling given function for every object registered (with respective id).
+     * @brief A built-in ForEachEntity loop calling given function for every object registered (with respective id).
      * 
      * @param func - Function to call for each object. Function signature: void(*func)(EntityID, Entity*).
      */
-    void forEach(std::function<void(EntityID, Entity*)> func);
+    void ForEachEntity(std::function<void(EntityID, Entity*)> func);
 
     /**
      * @brief Draw all entities. 
      */
-    void drawAllEntities();
+    void DrawAllEntities();
 
     /**
      * @brief Update all entities.
      * 
      * @param dt - How many seconds since last update/frame.
      */
-    void update(float dt);
+    void Update(float dt);
 
     /**
      * @brief Destroys all entities and readys for destruction.
@@ -103,13 +108,71 @@ public:
      * @return true - All Entities was destroyed.
 	 * @return false - Failed to destroy entities. 
      */
-    bool destroyAll();
+    bool DestroyAll();
+
+    /**
+     * @brief Function for increasing next entity id. DO NOT USE.
+     * 
+     * @return int 
+     */
+    EntityID NextID()
+    {
+        return nextID++;
+    }
 
 protected:
     //
 private:
-    int nextID = PLAYER_ENTITY_ID + 1;
-
     std::vector<EntityID> entityIDs;      //!< A vector of all entities registered.
     std::unordered_map<EntityID, Entity*> entities;     //!< A unordered map mapping entities to ids.
+
+    EntityID nextID;
+
+// ################################################################################################
+// #                                                                                              #
+// #                                     Component Management                                     #
+// #                                                                                              #
+// ################################################################################################
+
+    /**
+     * @brief Create new Component. The component's id goes from 2 and upwards. 1 is Player component id.
+     * 
+     * @tparam Class - The ubclass of Component.
+     * 
+     @return ComponentID - The ID to the newly created component.
+     */
+    //template<typename Class>
+    //ComponentID CreateComponent();
+
+    /**
+     * @brief Get the Component by ID.
+     * 
+     * @param id - Id of given component.
+     * 
+     * @return Component* - Pointer to component found. If nothing found, nullptr returned.
+     */
+    //Component* GetComponentByID(ComponentID id);
+
+    /**
+     * @brief Get the Component ID.
+     * 
+     * @param component - Component to get id of.
+     * 
+     * @return ComponentID - ID of component. 0 if not found.
+     */
+    //ComponentID GetComponentID(Component* component);
+
+    /**
+     * @brief Removes an component by ID, all components without an owner gets removed aswell.
+     * 
+     * @param id - ID of component to be removed.
+     */
+    //void RemoveComponentByID(ComponentID id);
+protected:
+    //
+private:
+    /*int nextID = INPUT_COMPONENT_ID + 1;
+
+    std::vector<ComponentID> componentIDs;      //!< A vector of all components registered.
+    std::unordered_map<ComponentID, Component*> components;     //!< A unordered map, mapping components to ids.*/
 };

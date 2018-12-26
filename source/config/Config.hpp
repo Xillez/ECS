@@ -1,7 +1,7 @@
 #pragma once
 /* #undef PROJECT_VERSION */
-/* #undef BUILD_TYPE */
-/* #undef BUILD_TYPE_DEBUG */
-/* #undef BUILD_TYPE_RELEASE */
+#define BUILD_TYPE Debug
+#define BUILD_TYPE_DEBUG Debug
+#define BUILD_TYPE_RELEASE Release
 
 #define IS_BUILD_TYPE_DEBUG() (BUILD_TYPE == BUILD_TYPE_DEBUG)

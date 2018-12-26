@@ -5,31 +5,31 @@ Component::Component(ComponentID id) : ID(id)
 	//
 }
 
-void Component::init(const EntityID& parent)
+void Component::Initialize(const EntityID& parent)
 {
 	this->parentID = parent;
 
 }
 
 // Virtual
-void Component::update(float dt)
+void Component::Update(float dt)
 {
     //
 }
 
 // Virtual
-void Component::draw()
+void Component::Draw()
 {
     //
 }
 
 // Virtual
-void Component::remove()
+void Component::Destroy()
 {
     //
 }
 
-ComponentID Component::getID()
+ComponentID Component::GetID()
 {
     return this->ID;
 }

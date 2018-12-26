@@ -6,7 +6,7 @@ EntityMgr::EntityMgr()
 }
 
 /*template<class Tclass>
-EntityID EntityMgr::createEntity()
+EntityID EntityMgr::CreateEntity()
 {
     if (std::is_base_of<Entity, Tclass>::value)     // Does class extend Entity?
     {
@@ -21,7 +21,7 @@ EntityID EntityMgr::createEntity()
     return 0;
 }*/
 
-Entity* EntityMgr::getEntityByID(EntityID id)
+Entity* EntityMgr::GetEntityByID(EntityID id)
 {
     // Has the given id been registered.
     if (std::find(this->entityIDs.begin(), this->entityIDs.end(), id) == this->entityIDs.end())
@@ -29,7 +29,7 @@ Entity* EntityMgr::getEntityByID(EntityID id)
     return this->entities[id];                      // Found entity.
 }
 
-EntityID EntityMgr::getEntityID(Entity* entity)
+EntityID EntityMgr::GetEntityID(Entity* entity)
 {
     for (auto& item : entities)                 // Loop through all entities.
         if (item.second != entity)              // I pointer the same.
@@ -37,36 +37,86 @@ EntityID EntityMgr::getEntityID(Entity* entity)
     return 0;                                   // Found nothing.
 }
 
-void EntityMgr::removeEntityByID(EntityID id)
+void EntityMgr::DestroyEntityByID(EntityID id)
 {
     auto it = std::find(this->entityIDs.begin(), this->entityIDs.end(), id);    // Does the id exist.
     if (it != this->entityIDs.end())            // Found entity, delete it.
     {
-        this->entities[id]->remove();           // Trigger removal of entity.
+        this->entities[id]->Destroy();           // Trigger removal of entity.
         this->entities.erase(id);               // Remove entity id.
         this->entityIDs.erase(it);              // Finally remove the entity.
     }
 }
 
-void EntityMgr::forEach(std::function<void(EntityID, Entity*)> func)
+void EntityMgr::ForEachEntity(std::function<void(EntityID, Entity*)> func)
 {
-    for(auto& entity : this->entities)          // Run through every entity.
+    for (auto& entity : this->entities)         // Run through every entity.
         func(entity.first, entity.second);      // Call function on object.
 }
 
-void EntityMgr::drawAllEntities()
+void EntityMgr::DrawAllEntities()
 {
-    for(auto& entity : this->entities)          // Run through every entity.
-        entity.second->draw();                  // Call draw on entity.
+    for (auto& entity : this->entities)         // Run through every entity.
+        entity.second->Draw();                  // Call draw on entity.
 }
 
-void EntityMgr::update(float dt)
+void EntityMgr::Update(float dt)
 {
-    for(auto& entity : this->entities)          // Run through every entity.
-        entity.second->update(dt);              // Call draw on entity.
+    for (auto& entity : this->entities)         // Run through every entity.
+        entity.second->Update();              // Call draw on entity.
 }
 
-bool EntityMgr::destroyAll()
+bool EntityMgr::DestroyAll()
 {
-    return true;
+    for (auto& entity : this->entities)         // Run through all entities
+        this->DestroyEntityByID(entity.first);   // Remove the entity.
+    return (this->entities.size() == 0);
 }
+
+// ################################################################################################
+// #                                                                                              #
+// #                                     Component Management                                     #
+// #                                                                                              #
+// ################################################################################################
+
+/*template<typename Class>
+ComponentID EntityMgr::CreateComponent()
+{
+    if (std::is_base_of<Component, Class>::value)   // Does class extend Component?
+    {
+        Component* temp = new Class(nextID);        // Make new component.
+        this->componentIDs.push_back(nextID);       // Add id.
+        this->components[nextID] = temp;            // Save component pointer.
+        temp = nullptr;
+        this->nextID++;                             // Ready for next component registration.
+        return this->nextID - 1;
+    }
+    return 0;
+}
+
+Component* EntityMgr::GetComponentByID(ComponentID id)
+{
+    // Has the given id been registered.
+    if (std::find(this->componentIDs.begin(), this->componentIDs.end(), id) == this->componentIDs.end())
+        return 0;                               // Found nothing.
+    return this->components[id];                // Found component.
+}
+
+ComponentID EntityMgr::GetComponentID(Component* component)
+{
+    for (auto& item : components)               // Loop through all components.
+        if (item.second != component)           // I pointer the same.
+            return item.first;                  // Give key.
+    return 0;                                   // Found nothing.
+}
+
+void EntityMgr::RemoveComponentByID(ComponentID id)
+{
+    auto it = std::find(this->componentIDs.begin(), this->componentIDs.end(), id);    // Does the id exist
+    if (it != this->componentIDs.end())         // Found component, delete it.
+    {
+        this->components[id]->Remove();         // Trigger removal of component.
+        this->components.erase(id);             // Remove component id.
+        this->componentIDs.erase(it);           // Finally remove the component.
+    }
+}*/

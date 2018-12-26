@@ -37,23 +37,19 @@ int main(int argc, char const *argv[])
 		printf("Project version: %s\n", PROJECT_VERSION);
 	#endif
 
-	EntityMgr entityMgr;
+	EntityMgr EntityMgr;
 
 	for (int i = 0; i < 10; i++)
 	{
-		entityMgr.createEntity<Entity>();
-		entityMgr.createEntity<TestEntity>();
+		EntityMgr.CreateEntity<Entity>();
+		EntityMgr.CreateEntity<TestEntity>();
 	}
 
-	entityMgr.drawAllEntities();
+	EntityMgr.DrawAllEntities();
 	
-	//entityMgr.forEach([](EntityID id, Entity* entity){
-	//	entity->draw();
+	//EntityMgr.ForEachEntity([](EntityID id, Entity* entity){
+	//	entity->Draw();
 	//});
-
-	//while(true)
-	//{
-	//	
-	//}
-	return !entityMgr.destroyAll();
+	
+	return !EntityMgr.DestroyAll();
 }
