@@ -36,6 +36,9 @@ int main(int argc, char const *argv[])
 	#if defined(PROJECT_VERSION)
 		printf("Project version: %s\n", PROJECT_VERSION);
 	#endif
+	#if IS_LOGGING_ENABLED()
+		printf("Logging enabled!\n");
+	#endif
 
 	EntityMgr EntityMgr;
 

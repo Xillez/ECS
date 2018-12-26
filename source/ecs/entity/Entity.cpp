@@ -19,21 +19,25 @@ Entity::~Entity()
 	//
 }
 
+/*template<typename Class>
+Component* Entity::CreateComponent()
+{
+    if (std::is_base_of<Component, Class>::value)   // Does class extend Component?
+    {
+        ComponentID tempID = this->NextID();        // Get id and increase.
+        Component* temp = new Class(tempID);        // Make new component.
+        this->componentIDs.push_back(tempID);       // Add id.
+        this->components[tempID] = temp;            // Save component pointer.
+        return temp;
+    }
+    return 0;
+}*/
+
 //virtual
 /*template<class Tclass>
-bool Entity::GetComponent()
+Component* Entity::GetComponent()
 {
-	auto it = std::find(this->componentIDs.begin(), this->componentIDs.end(), id);    // Does the id exist.
-	if (it != this->componentIDs.end())            // Found component, delete it.
-	{
-		// Add parent / initialize with current object as parent.
-			//component->Initialize(this);
-			// Add it to current Entity's component list.
-			this->componentIDs.push_back(id);
-	}
-
-	// Tell whether it was added or not.
-	return (id);
+	// Look in header
 }*/
 
 //virtual
@@ -114,4 +118,9 @@ std::string Entity::GetLowestTypeName(bool removeDigits)
 		name.erase(name.begin(), name.begin() + i);	// Remove them.
 	}
 	return name;									// Return pretty name.
+}
+
+ComponentID Entity::NextCompID()
+{
+    return this->nextCompId++;
 }

@@ -34,17 +34,18 @@ public:
     template<class Tclass>       // In header because of cmake undefined error! DO NOT MOVE BACK!!
     EntityID CreateEntity()
     {
-        if (std::is_base_of<Entity, Tclass>::value)     // Does class extend Entity?
+        if (!std::is_base_of<Entity, Tclass>::value)     // Class does NOT extend Entity.
         {
-            EntityID tempID = this->NextID();       // Ready for next entity registration.
-            Entity* temp = new Tclass(tempID);      // Make new Entity with new ID.
-            this->entityIDs.push_back(tempID);      // Add id.
-            this->entities[tempID] = temp;          // Save entity pointer.
-            temp = nullptr;
-            return this->entities[tempID]->GetID(); // Return the new entities id.
+            std::cout << "CreateEntity() accepts only Entity class and subclasses of it!\n";
+            return 0;
         }
-        std::cout << "Accepts only Entity and subclasses of it!\n";
-        return 0;
+
+        EntityID tempID = this->NextID();       // Ready for next entity registration.
+        Entity* temp = new Tclass(tempID);      // Make new Entity with new ID.
+        this->entityIDs.push_back(tempID);      // Add id.
+        this->entities[tempID] = temp;          // Save entity pointer.
+        temp = nullptr;
+        return this->entities[tempID]->GetID(); // Return the new entities id.
     }
 
     /**
@@ -110,23 +111,20 @@ public:
      */
     bool DestroyAll();
 
-    /**
-     * @brief Function for increasing next entity id. DO NOT USE.
-     * 
-     * @return int 
-     */
-    EntityID NextID()
-    {
-        return nextID++;
-    }
-
 protected:
     //
 private:
+    /**
+     * @brief Function for increasing next entity id. DO NOT USE.
+     * 
+     * @return EntityID (int) - ID of next entity to be added.
+     */
+    EntityID NextID();
+
     std::vector<EntityID> entityIDs;      //!< A vector of all entities registered.
     std::unordered_map<EntityID, Entity*> entities;     //!< A unordered map mapping entities to ids.
 
-    EntityID nextID;
+    EntityID nextID = 0;
 
 // ################################################################################################
 // #                                                                                              #

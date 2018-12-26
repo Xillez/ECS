@@ -10,6 +10,7 @@
 #include <functional>
 #include <unordered_map>
 #include <algorithm>
+#include <type_traits>
 
 #define DEFAULT_ENTITY_ID -1
 
@@ -50,14 +51,23 @@ public:
      * 
      @return ComponentID - The ID to the newly created component.
      */
-    template<typename Tclass>
-    ComponentID CreateComponent()
+    template<typename Class>
+	Component* CreateComponent()
 	{
-		//
+		if (std::is_base_of<Component, Class>::value)   // Does class extend Component?
+		{
+			ComponentID tempID = this->NextCompID();    // Get id and increase.
+			Component* temp = new Class(tempID);        // Make new component.
+			this->componentIDs.push_back(tempID);       // Add id.
+			this->components[tempID] = temp;            // Save component pointer.
+			return temp;
+		}
+		return 0;
 	}
 
 	/**
-	 * @brief Get internal component on entity.
+	 * @brief Get internal component on entity based on type, 
+	 * !NOTE! Template class given as type "Component" class will return any component, no guarrantee what you will get.
 	 * 
 	 * @tparam Tclass - Class extended from Component.
 	 * 
@@ -66,7 +76,15 @@ public:
 	template<class Tclass>
 	Component* GetComponent()
 	{
-		//
+		if (!std::is_base_of<Component, Tclass>::value)
+		{
+            std::cout << "GetComponent() accepts only Component class and subclasses of it!\n";
+            return nullptr;
+        }
+		auto findByType = [](std::pair<ComponentID, Component*> entry){ return (typeid(Tclass) == typeid(entry.second)); };
+		auto it = std::find_if(this->components.begin(), this->components.end(), findByType);
+		if (it != this->components.end());
+			printf("%s was similar to %s: %d", typeid(Tclass).name(), this->components[it].second->GetLowestTypeName(), (it != this->components.end()));
 	}
 
 	/**
@@ -164,9 +182,16 @@ protected:
     std::unordered_map<ComponentID, Component*> components;     //!< A unordered map, mapping components to ids.
 
 private:
+	/**
+     * @brief Function for increasing next entity id. DO NOT USE.
+     * 
+     * @return EntityID (int) - ID of next entity to be added.
+     */
+    EntityID NextCompID();
+
 	EntityID ID;						//!< Id of Entity.
 
-	ComponentID nextCompId = 0;
+	ComponentID nextCompId = 0;			//!< Next Id of components.
 
 	void* mgr;							//!< Pointer back to EntityMgr.
 };

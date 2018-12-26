@@ -4,9 +4,7 @@
 
 #include <vector>
 #include <unordered_map>
-#include <algorithm>
-
-#define INPUT_COMPONENT_ID 1
+#include <type_traits>
 
 /**
  * @brief Component manager class. Manages components.
@@ -20,14 +18,14 @@ public:
     ComponentMgr();
 
     /**
-     * @brief Create new Component. The component's id goes from 2 and upwards. 1 is Player component id.
+     * @brief Create new Component.
      * 
      * @tparam Class - The ubclass of Component.
      * 
-     @return ComponentID - The ID to the newly created component.
+     @return Component* - Pointer to the newly created component.
      */
     template<typename Class>
-    ComponentID CreateComponent();
+    Component* CreateComponent();
 
     /**
      * @brief Get the Component by ID.
@@ -56,7 +54,17 @@ public:
 protected:
     //
 private:
-    int nextID = INPUT_COMPONENT_ID + 1;
+    /**
+     * @brief Function for increasing next component id. DO NOT USE.
+     * 
+     * @return ComponentID (int) - ID of next component to be added.
+     */
+    ComponentID NextID()
+    {
+        return nextID++;
+    }
+
+    ComponentID nextID = 0;
 
     std::vector<ComponentID> componentIDs;      //!< A vector of all components registered.
     std::unordered_map<ComponentID, Component*> components;     //!< A unordered map, mapping components to ids.

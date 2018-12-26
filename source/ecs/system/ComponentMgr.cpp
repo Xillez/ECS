@@ -1,6 +1,8 @@
 #include "ComponentMgr.hpp"
 
 #include <type_traits>
+#include <algorithm>
+#include <type_traits>
 
 ComponentMgr::ComponentMgr()
 {
@@ -8,16 +10,15 @@ ComponentMgr::ComponentMgr()
 }
 
 template<typename Class>
-ComponentID ComponentMgr::CreateComponent()
+Component* ComponentMgr::CreateComponent()
 {
     if (std::is_base_of<Component, Class>::value)   // Does class extend Component?
     {
-        Component* temp = new Class(nextID);        // Make new component.
-        this->componentIDs.push_back(nextID);       // Add id.
-        this->components[nextID] = temp;            // Save component pointer.
-        temp = nullptr;
-        this->nextID++;                             // Ready for next component registration.
-        return this->nextID - 1;
+        ComponentID tempID = this->NextID();        // Get id and increase.
+        Component* temp = new Class(tempID);        // Make new component.
+        this->componentIDs.push_back(tempID);       // Add id.
+        this->components[tempID] = temp;            // Save component pointer.
+        return temp;
     }
     return 0;
 }
@@ -43,7 +44,7 @@ void ComponentMgr::RemoveComponentByID(ComponentID id)
     auto it = std::find(this->componentIDs.begin(), this->componentIDs.end(), id);    // Does the id exist
     if (it != this->componentIDs.end())         // Found component, delete it.
     {
-        this->components[id]->Remove();         // Trigger removal of component.
+        this->components[id]->Destroy();         // Trigger removal of component.
         this->components.erase(id);             // Remove component id.
         this->componentIDs.erase(it);           // Finally remove the component.
     }

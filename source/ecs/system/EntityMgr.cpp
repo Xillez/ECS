@@ -73,6 +73,11 @@ bool EntityMgr::DestroyAll()
     return (this->entities.size() == 0);
 }
 
+EntityID EntityMgr::NextID()
+{
+    return nextID++;
+}
+
 // ################################################################################################
 // #                                                                                              #
 // #                                     Component Management                                     #
