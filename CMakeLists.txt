@@ -1,18 +1,16 @@
 # Set cmake minimum
 cmake_minimum_required(VERSION 3.10)
 
-#set(BUILD_TYPE_DEBUG "Debug")
-#set(BUILD_TYPE_RELEASE "Release")
-#set(CMAKE_BUILD_TYPE ${BUILD_TYPE_DEBUG})
-#set(BUILD_TYPE ${BUILD_TYPE_DEBUG})
-#set(PROJECT_VERSION "v0.1")
+set(BUILD_TYPE_DEBUG "Debug")
+set(BUILD_TYPE_RELEASE "Release")
+set(CMAKE_BUILD_TYPE ${BUILD_TYPE_DEBUG})
+set(BUILD_TYPE ${BUILD_TYPE_DEBUG})
+set(PROJECT_VERSION "v0.1")
 
 # Set cmake options
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-#set(CMAKE_C_COMPILER gcc)
-#set(CMAKE_CXX_COMPILER g++)
 set(CMAKE_GENERATOR "Unix Makefiles" CACHE INTERNAL "" FORCE)
 
 # Set project name
