@@ -19,26 +19,53 @@ Entity::~Entity()
 	//
 }
 
-/*template<typename Class>
-Component* Entity::CreateComponent()
+// ##########################################
+// ########## Life cycle functions ##########
+// ##########################################
+
+//virtual
+void Entity::Start()
 {
-    if (std::is_base_of<Component, Class>::value)   // Does class extend Component?
-    {
-        ComponentID tempID = this->NextID();        // Get id and increase.
-        Component* temp = new Class(tempID);        // Make new component.
-        this->componentIDs.push_back(tempID);       // Add id.
-        this->components[tempID] = temp;            // Save component pointer.
-        return temp;
-    }
-    return 0;
+	printf("Entity - Start()\n");
+	/*for (std::pair<const ComponentID, Component*> comp : this->components)
+	{
+		comp.second->
+	}*/
+}
+
+//virtual
+void Entity::Update()
+{
+	printf("Entity - Update()\n");
+}
+
+//virtual
+/*void Entity::PhysicsUpdate()
+{
+	//
 }*/
 
 //virtual
-/*template<class Tclass>
-Component* Entity::GetComponent()
+void Entity::Draw()
 {
-	// Look in header
-}*/
+	printf("Entity - Draw()\n");
+	//std::cout << "Entity " << this->ID << ", ClassName: " << this->GetClassName() << "!\n";
+}
+
+//virtual
+bool Entity::Destroy()
+{
+	// TODO: Actually delete all pointer in list.
+
+	printf("Entity - Destroy()");
+	this->componentIDs.clear();
+	//this->
+    return (this->componentIDs.size() == 0);
+}
+
+// ##########################################
+// ########## Management functions ##########
+// ##########################################
 
 //virtual
 Component* Entity::GetComponentByID(ComponentID id)
@@ -56,36 +83,9 @@ Component* Entity::GetComponentByID(ComponentID id)
 	return (id);*/
 }
 
-//virtual
-void Entity::Start()
-{
-	//
-}
-
-//virtual
-void Entity::Update()
-{
-	//
-}
-
-//virtual
-/*void Entity::PhysicsUpdate()
-{
-	//
-}*/
-
-//virtual
-void Entity::Draw()
-{
-	std::cout << "Entity " << this->ID << ", ClassName: " << this->GetClassName() << "!\n";
-}
-
-//virtual
-bool Entity::Destroy()
-{
-	this->componentIDs.clear();
-    return (this->componentIDs.size() == 0);
-}
+// ##########################################
+// ########## Utility functions ##########
+// ##########################################
 
 int Entity::GetID()
 {
@@ -96,6 +96,8 @@ int Entity::GetID()
 std::string Entity::GetClassName(bool removeDigits)
 {
 	std::string name = typeid(*this).name();	// Get dirty class name.
+	if (typeid(*this).__is_pointer_p())			// If it's a pointer remove prefix "P".
+		name.erase(name.begin(), name.begin() + 1);
 	if (removeDigits)							// Should remove digits?
 	{
 		int i = 0;
@@ -106,19 +108,20 @@ std::string Entity::GetClassName(bool removeDigits)
 }
 
 //virtual
-std::string Entity::GetLowestTypeName(bool removeDigits)
+/*std::string Entity::GetLowestTypeName(bool removeDigits)
 {
-	std::string name = typeid(*this).name();		// Get the dirty name of class.
-	if (typeid(*this).__is_pointer_p())				// If it's  a pointer remove prefix "P".
+	std::string name = typeid(*this).name();				// Get the dirty name of class.
+	//printf("GET LOWEST TYPE NAME: %s\n", name.c_str());
+	if (typeid(*this).__is_pointer_p())						// If it's a pointer remove prefix "P".
 		name.erase(name.begin(), name.begin() + 1);
-	if (removeDigits)								// Should remove digits?
+	if (removeDigits)										// Should remove digits?
 	{
 		int i = 0;
-		while (isdigit(name.at(i))) i++;			// Find where digits end.
-		name.erase(name.begin(), name.begin() + i);	// Remove them.
+		while (isdigit(name.at(i))) i++;					// Find where digits end.
+		name.erase(name.begin(), name.begin() + i);			// Remove them.
 	}
-	return name;									// Return pretty name.
-}
+	return name;											// Return pretty name.
+}*/
 
 ComponentID Entity::NextCompID()
 {

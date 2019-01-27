@@ -7,25 +7,29 @@
 
 class TestEntity : public Entity
 {
-	public:
-		TestEntity(EntityID id) : Entity(id)
-		{
-			//
-		};
+public:
+	TestEntity(EntityID id) : Entity(id)
+	{
+		//
+	};
+};
 
-		virtual std::string getBottomClassName(bool removeDigits = true)
-		{
-			std::string name = typeid(*this).name();
-			if (typeid(*this).__is_pointer_p())
-				name.erase(name.begin(), name.begin() + 1);
-			if (removeDigits)
-			{
-				int i = 0;
-				while (isdigit(name.at(i))) i++;
-				name.erase(name.begin(), name.begin() + i);
-			}
-			return name;
-		}
+class TestComponent : public Component
+{
+public:
+	TestComponent(ComponentID id) : Component(id)
+	{
+
+	};
+};
+
+class TestComponent2 : public Component
+{
+public:
+	TestComponent2(ComponentID id) : Component(id)
+	{
+
+	};
 };
 
 int main(int argc, char const *argv[])
@@ -42,17 +46,32 @@ int main(int argc, char const *argv[])
 
 	EntityMgr EntityMgr;
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 2; i++)
 	{
-		EntityMgr.CreateEntity<Entity>();
 		EntityMgr.CreateEntity<TestEntity>();
 	}
 
-	EntityMgr.DrawAllEntities();
-	
-	//EntityMgr.ForEachEntity([](EntityID id, Entity* entity){
-	//	entity->Draw();
-	//});
+	EntityMgr.Start();
+
+	int i = 0;
+	while (i < 10000)
+	{
+		EntityMgr.Update();
+
+		/*EntityMgr.ForEachEntity([](EntityID id, Entity* entity){
+			TestComponent* comp = entity->CreateComponent<TestComponent>();
+			TestComponent2* comp2 = entity->CreateComponent<TestComponent2>();
+			
+			printf("Component id: %d | EntityParent id: %d | Component class type: %s\n", comp->GetID(), comp->GetParentID(), comp->GetClassName().c_str());
+			printf("Component id: %d | EntityParent id: %d | Component class type: %s\n", comp2->GetID(), comp2->GetParentID(), comp2->GetClassName().c_str());
+		});*/
+
+		//printf("\n--------------------------------------------------------------\n");
+
+		EntityMgr.Draw();
+
+		i++;
+	}
 	
 	return !EntityMgr.DestroyAll();
 }

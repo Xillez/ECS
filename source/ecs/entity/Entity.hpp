@@ -44,84 +44,9 @@ public:
 	 */
 	virtual ~Entity();
 
-	/**
-     * @brief Create new Component with next local (to entity) component id.
-     * 
-     * @tparam Class - The subclass of Component.
-     * 
-     @return ComponentID - The ID to the newly created component.
-     */
-    template<typename Class>
-	Component* CreateComponent()
-	{
-		if (std::is_base_of<Component, Class>::value)   // Does class extend Component?
-		{
-			ComponentID tempID = this->NextCompID();    // Get id and increase.
-			Component* temp = new Class(tempID);        // Make new component.
-			this->componentIDs.push_back(tempID);       // Add id.
-			this->components[tempID] = temp;            // Save component pointer.
-			return temp;
-		}
-		return 0;
-	}
-
-	/**
-	 * @brief Get internal component on entity based on type, 
-	 * !NOTE! Template class given as type "Component" class will return any component, no guarrantee what you will get.
-	 * 
-	 * @tparam Tclass - Class extended from Component.
-	 * 
-	 * @return Component* - Pointer to internal component.
-	 */
-	template<class Tclass>
-	Component* GetComponent()
-	{
-		if (!std::is_base_of<Component, Tclass>::value)
-		{
-            std::cout << "GetComponent() accepts only Component class and subclasses of it!\n";
-            return nullptr;
-        }
-		auto findByType = [](std::pair<ComponentID, Component*> entry){ return (typeid(Tclass) == typeid(entry.second)); };
-		auto it = std::find_if(this->components.begin(), this->components.end(), findByType);
-		if (it != this->components.end());
-			printf("%s was similar to %s: %d", typeid(Tclass).name(), this->components[it].second->GetLowestTypeName(), (it != this->components.end()));
-	}
-
-	/**
-	 * @brief Get internal component on entity.
-	 * 
-	 * @tparam Tclass - Class extended from Component.
-	 * 
-	 * @return std::vector<Component*> - Vector of pointer to internal component.
-	 */
-	template<class Tclass>
-	Component* GetComponents()
-	{
-		//
-	}
-
-	/**
-	 * @brief Get the Component via ID
-	 * 
-	 * @param id - Id of the component you want.
-	 * 
-     * @return Component* - Pointer to component found. If nothing found, nullptr returned.
-	 */
-	virtual Component* GetComponentByID(ComponentID id);
-
-	/**
-     * @brief Removes an component by ID, all components without an owner gets removed aswell.
-     * 
-     * @param component - Pointer to component to be removed.
-     */
-    void RemoveComponent(Component* component);
-
-	/**
-     * @brief Removes an component by ID, all components without an owner gets removed aswell.
-     * 
-     * @param id - ID of component to be removed.
-     */
-    void RemoveComponentByID(ComponentID id);
+	// ##########################################
+	// ########## Life cycle functions ##########
+	// ##########################################
 
 	/**
 	 * @brief Start function, called once at the very start of the lifecycle.
@@ -151,6 +76,94 @@ public:
 	 */
 	virtual bool Destroy();
 
+	// ##########################################
+	// ########## Management functions ##########
+	// ##########################################
+
+	/**
+     * @brief Create new Component with next local (to entity) component id.
+     * 
+     * @tparam Class - The subclass of Component.
+     * 
+     @return ComponentID - The ID to the newly created component.
+     */
+    template<class Tclass>
+	Tclass* CreateComponent()
+	{
+		if (std::is_base_of<Component, Tclass>::value)   // Does class extend Component?
+		{
+			ComponentID tempID = this->NextCompID();    // Get id and increase.
+			Tclass* temp = new Tclass(tempID);        	// Make new component.
+			temp->SetParentID(this->GetID());			// Set Parent id in component to mine.
+			this->componentIDs.push_back(tempID);       // Add id.
+			this->components[tempID] = temp;            // Save component pointer.
+			return temp;
+		}
+		return 0;
+	}
+
+	/**
+	 * @brief Get internal component on entity based on type, 
+	 * !NOTE! Template class given as type "Component" class will return any component, no guarrantee what you will get.
+	 * 
+	 * @tparam Tclass - Class extended from Component.
+	 * 
+	 * @return Component* - Pointer to internal component.
+	 */
+	template<class Tclass>
+	Tclass* GetComponent()
+	{
+		if (!std::is_base_of<Component, Tclass>::value)
+		{
+            std::cout << "GetComponent() accepts only Component class and subclasses of it!\n";
+            return nullptr;
+        }
+		auto findByType = [](std::pair<ComponentID, Component*> entry){ return (typeid(Tclass) == typeid(entry.second)); };
+		auto it = std::find_if(this->components.begin(), this->components.end(), findByType);
+		if (it != this->components.end());
+			printf("%s was similar to %s: %d", typeid(Tclass).name(), this->components[it].second->GetLowestTypeName(), (it != this->components.end()));
+	}
+
+	/**
+	 * @brief Get internal component on entity.
+	 * 
+	 * @tparam Tclass - Class extended from Component.
+	 * 
+	 * @return std::vector<Component*> - Vector of pointer to internal component.
+	 */
+	template<class Tclass>
+	std::vector<Tclass*> GetComponents()
+	{
+		//
+	}
+
+	/**
+	 * @brief Get the Component via ID
+	 * 
+	 * @param id - Id of the component you want.
+	 * 
+     * @return Component* - Pointer to component found. If nothing found, nullptr returned.
+	 */
+	virtual Component* GetComponentByID(ComponentID id);
+
+	/**
+     * @brief Removes an component by ID, all components without an owner gets removed aswell.
+     * 
+     * @param component - Pointer to component to be removed.
+     */
+    void RemoveComponent(Component* component);
+
+	/**
+     * @brief Removes an component by ID, all components without an owner gets removed aswell.
+     * 
+     * @param id - ID of component to be removed.
+     */
+    void RemoveComponentByID(ComponentID id);
+
+	// #######################################
+	// ########## Utility functions ##########
+	// #######################################
+	
 	/**
 	 * @brief A function for getting id.
 	 * 
@@ -170,7 +183,7 @@ public:
 	 * 
 	 * @return std::string - Name of the lowest class in the hierarchy.
 	 */
-	virtual std::string GetLowestTypeName(bool removeDigit = true);
+	//virtual std::string GetLowestTypeName(bool removeDigit = true);
 
 protected:
 	std::vector<ComponentID> componentIDs;	//!< List of Component IDs.	

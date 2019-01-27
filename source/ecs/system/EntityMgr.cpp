@@ -5,21 +5,31 @@ EntityMgr::EntityMgr()
     //
 }
 
-/*template<class Tclass>
-EntityID EntityMgr::CreateEntity()
+// ##########################################
+// ########## Life cycle functions ##########
+// ##########################################
+
+void EntityMgr::Start()
 {
-    if (std::is_base_of<Entity, Tclass>::value)     // Does class extend Entity?
-    {
-        Entity* temp = new Tclass(this->nextID);    // Make new Entity with new ID.
-        this->entityIDs.push_back(this->nextID);    // Add id.
-        this->entities[this->nextID] = temp;        // Save entity pointer.
-        temp = nullptr;
-        this->nextID++;                             // Ready for next entity registration.
-        return this->nextID - 1;                    // Return the new entities id.
-    }
-    std::cout << "Accepts only Entity and subclasses of it!\n";
-    return 0;
-}*/
+    for (auto& entity : this->entities)         // Run through every entity.
+        entity.second->Start();                  // Call start on entity.
+}
+
+void EntityMgr::Update(/*float dt*/)
+{
+    for (auto& entity : this->entities)         // Run through every entity.
+        entity.second->Update();              // Call draw on entity.
+}
+
+void EntityMgr::Draw()
+{
+    for (auto& entity : this->entities)         // Run through every entity.
+        entity.second->Draw();                  // Call draw on entity.
+}
+
+// ##########################################
+// ########## Management functions ##########
+// ##########################################
 
 Entity* EntityMgr::GetEntityByID(EntityID id)
 {
@@ -48,29 +58,21 @@ void EntityMgr::DestroyEntityByID(EntityID id)
     }
 }
 
-void EntityMgr::ForEachEntity(std::function<void(EntityID, Entity*)> func)
-{
-    for (auto& entity : this->entities)         // Run through every entity.
-        func(entity.first, entity.second);      // Call function on object.
-}
-
-void EntityMgr::DrawAllEntities()
-{
-    for (auto& entity : this->entities)         // Run through every entity.
-        entity.second->Draw();                  // Call draw on entity.
-}
-
-void EntityMgr::Update(float dt)
-{
-    for (auto& entity : this->entities)         // Run through every entity.
-        entity.second->Update();              // Call draw on entity.
-}
-
 bool EntityMgr::DestroyAll()
 {
     for (auto& entity : this->entities)         // Run through all entities
         this->DestroyEntityByID(entity.first);   // Remove the entity.
     return (this->entities.size() == 0);
+}
+
+// #######################################
+// ########## Utility functions ##########
+// #######################################
+
+void EntityMgr::ForEachEntity(std::function<void(EntityID, Entity*)> func)
+{
+    for (auto& entity : this->entities)         // Run through every entity.
+        func(entity.first, entity.second);      // Call function on object.
 }
 
 EntityID EntityMgr::NextID()

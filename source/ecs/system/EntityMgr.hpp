@@ -24,7 +24,32 @@ public:
      */
     EntityMgr();
 
+	// ##########################################
+	// ########## Life cycle functions ##########
+	// ##########################################
+
     /**
+     * @brief Start all entities.
+     */
+    void Start();
+
+    /**
+     * @brief Update all entities.
+     * 
+     * @param dt - How many seconds since last update/frame.
+     */
+    void Update(/*float dt*/);
+
+    /**
+     * @brief Draw all entities. 
+     */
+    void Draw();
+
+    // ##########################################
+	// ########## Management functions ##########
+	// ##########################################
+
+/**
      * @brief Create new Entity. The entity's id goes from 2 and upwards. 1 is Player entity id.
      * 
      * @tparam Class - The subclass of Entity to be made.
@@ -85,24 +110,18 @@ public:
     void DestroyEntityByID(EntityID id);
 
     /**
-     * @brief A built-in ForEachEntity loop calling given function for every object registered (with respective id).
+     * @brief Destroy an entity by id.
      * 
-     * @param func - Function to call for each object. Function signature: void(*func)(EntityID, Entity*).
+     * @param id - The id of entity to be destroyed.
      */
-    void ForEachEntity(std::function<void(EntityID, Entity*)> func);
+    void DestroyByID(EntityID id);
 
     /**
-     * @brief Draw all entities. 
-     */
-    void DrawAllEntities();
-
-    /**
-     * @brief Update all entities.
+     * @brief Destroy by entity.
      * 
-     * @param dt - How many seconds since last update/frame.
+     * @param entity - Pointer to entity to be destroyed.
      */
-    void Update(float dt);
-
+    void Destroy(Entity* entity);
     /**
      * @brief Destroys all entities and readys for destruction.
      * 
@@ -110,6 +129,17 @@ public:
 	 * @return false - Failed to destroy entities. 
      */
     bool DestroyAll();
+
+    // #######################################
+	// ########## Utility functions ##########
+	// #######################################
+
+    /**
+     * @brief A built-in ForEachEntity loop calling given function for every object registered (with respective id).
+     * 
+     * @param func - Function to call for each object. Function signature: void(*func)(EntityID, Entity*).
+     */
+    void ForEachEntity(std::function<void(EntityID, Entity*)> func);
 
 protected:
     //
