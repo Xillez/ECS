@@ -1,11 +1,11 @@
 # Set cmake minimum
 cmake_minimum_required(VERSION 3.10)
 
+set(PROJECT_VERSION "v0.1")
 set(BUILD_TYPE_DEBUG "Debug")
 set(BUILD_TYPE_RELEASE "Release")
 set(CMAKE_BUILD_TYPE ${BUILD_TYPE_DEBUG})
 set(BUILD_TYPE ${BUILD_TYPE_DEBUG})
-set(PROJECT_VERSION "v0.1")
 
 set(BUILD_LOG "1")
 
@@ -53,7 +53,7 @@ add_executable(${PROJECT_NAME}
   ${PROJECT_SOURCE_DIR}/ecs/entity/Entity.cpp
 
   # Managers
-  ${PROJECT_SOURCE_DIR}/ecs/system/ComponentMgr.cpp
+  #${PROJECT_SOURCE_DIR}/ecs/system/ComponentMgr.cpp
   ${PROJECT_SOURCE_DIR}/ecs/system/EntityMgr.cpp
 )
 
