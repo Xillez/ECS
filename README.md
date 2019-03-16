@@ -31,7 +31,7 @@ Entity Component System.
   4. Run the executable:
 
      ``` 
-     ./bin/Framework
+     ./bin/ecs
      ```
 
 ### Features: 
