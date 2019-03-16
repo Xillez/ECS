@@ -1,3 +1,9 @@
 #pragma once
-typedef unsigned int EntityID;
-typedef unsigned int ComponentID;
+/**
+ * @brief Namespace of Entity Component System.
+ */
+namespace ECS
+{
+    typedef unsigned int EntityID;
+    typedef unsigned int ComponentID;
+}

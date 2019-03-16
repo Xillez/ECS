@@ -1,14 +1,13 @@
 #include "Component.hpp"
 
-Component::Component(ComponentID id) : ID(id)
+ECS::Component::Component(ECS::ComponentID id) : ID(id)
 {
 	//
 }
 
-void Component::Initialize(const EntityID& parent)
+void ECS::Component::Initialize(const ECS::EntityID& parent)
 {
 	this->parentID = parent;
-
 }
 
 // ##########################################
@@ -16,15 +15,15 @@ void Component::Initialize(const EntityID& parent)
 // ##########################################
 
 //virtual
-void Component::Start()
+void ECS::Component::Start()
 {
-	printf("Entity - Start()\n");
+	printf("Component - Start()\n");
 }
 
 //virtual
-void Component::Update()
+void ECS::Component::Update()
 {
-	printf("Entity - Update()\n");
+	printf("Component - Update()\n");
 }
 
 //virtual
@@ -34,33 +33,32 @@ void Component::Update()
 }*/
 
 //virtual
-void Component::Draw()
+void ECS::Component::Draw()
 {
-	printf("Entity - Draw()\n");
+	printf("Component - Draw()\n");
 }
 
 //virtual
-bool Component::Destroy()
+bool ECS::Component::Destroy()
 {
-	printf("Entity - Draw()\n");
-	//this->parentID = 0;
+	printf("Component - Destroy()\n");
 }
 
 // ##########################################
 // ########## Management functions ##########
 // ##########################################
 
-ComponentID Component::GetID()
+ECS::ComponentID ECS::Component::GetID()
 {
     return this->ID;
 }
 
-EntityID Component::GetParentID()
+ECS::EntityID ECS::Component::GetParentID()
 {
     return this->parentID;
 }
 
-void Component::SetParentID(EntityID parent)
+void ECS::Component::SetParentID(ECS::EntityID parent)
 {
     this->parentID = parent;
 }
@@ -70,7 +68,7 @@ void Component::SetParentID(EntityID parent)
 // #######################################
 
 //virtual
-std::string Component::GetClassName(bool removeDigits)
+std::string ECS::Component::GetClassName(bool removeDigits)
 {
 	std::string name = typeid(*this).name();	// Get dirty class name.
 	if (typeid(*this).__is_pointer_p())			// If it's a pointer remove prefix "P".
@@ -85,7 +83,7 @@ std::string Component::GetClassName(bool removeDigits)
 }
 
 //virtual
-/*std::string Component::GetLowestTypeName(bool removeDigits)
+/*std::string ECS::Component::GetLowestTypeName(bool removeDigits)
 {
 	std::string name = typeid(*this).name();		// Get the dirty name of class.
     printf("GET LOWEST TYPE NAME: %s\n", name);
