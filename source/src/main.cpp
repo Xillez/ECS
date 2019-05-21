@@ -34,19 +34,21 @@ public:
 
 int main(int argc, char const *argv[])
 {
-	#if IS_BUILD_TYPE_DEBUG()
+	#if DEBUG
 		printf("DEBUG BUILD!\n");
+	#else
+		printf("RELEASE BUILD!\n");
 	#endif
-	#if defined(PROJECT_VERSION)
-		printf("Project version: %s\n", PROJECT_VERSION);
+	#if defined(VERSION)
+		printf("Project version: %s\n", VERSION);
 	#endif
-	#if IS_LOGGING_ENABLED()
+	#if LOGGING
 		printf("Logging enabled!\n");
 	#endif
 
 	ECS::EntityMgr entityMgr;
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		ECS::Entity* entity = entityMgr.GetEntityByID(entityMgr.CreateEntity<TestEntity>());
 		entity->CreateComponent<TestComponent>();
@@ -59,7 +61,7 @@ int main(int argc, char const *argv[])
 	entityMgr.Start();
 
 	int i = 0;
-	while (i < 10000)
+	while (i < 2)
 	{
 		entityMgr.Update();
 
