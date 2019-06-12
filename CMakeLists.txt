@@ -11,18 +11,35 @@ set(DEBUG_BUILD "true")
 # "true" to enable logging or "false" to disable.
 set(LOGGING "true")
 
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+  message("Linux build")
+  SET(LINUX 1)
+  SET(APPLE 0)
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  message("Mac build")
+  SET(LINUX 0)
+  SET(APPLE 1)
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+  message("Windows build")
+  SET(WINDOWS 1)
+endif()
 
+# Automatic setup of release and debug build setting
 if(DEBUG_BUILD STREQUAL "true")
   set(CMAKE_BUILD_TYPE "Debug")
 else()
   set(CMAKE_BUILD_TYPE "Release")
+  set(LOGGING "false")
 endif()
 
 # Set cmake options
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_GENERATOR "Unix Makefiles" CACHE INTERNAL "" FORCE)
+# Set custom compiler
+if(LINUX)
+  set(CMAKE_GENERATOR "Unix Makefiles" CACHE INTERNAL "" FORCE)
+endif(LINUX)
 
 # Set project name
 project(${PROJECT_NAME})
@@ -43,13 +60,27 @@ configure_file(
 
 #include_directories("${PROJECT_BINARY_DIR}")
 
-#add_definitions(-DPROJECT_VERSION=${PROJECT_VERSION})
-#add_definitions(-DBUILD_DEBUG=${BUILD_DEBUG})
+# OS specific before executable addition
+if(WINDOWS)
+#add_subdirectory(ASSIMP)
+#link_directories(${PROJECT_BINARY_DIR})
+endif(WINDOWS)
 
-# Add all cpp files used in the program
+if(APPLE)
+	#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${GLEW_INCLUDE_DIRS}")
+endif(APPLE)
+
+if(LINUX)
+	#
+endif(LINUX)
+
+# Give files for building application
 add_executable(${PROJECT_NAME} 
-	#src
+  #src
   ${PROJECT_SOURCE_DIR}/src/main.cpp
+  
+  # Utillities
+  ${PROJECT_SOURCE_DIR}/util/Logging.cpp
   
   # Components
   ${PROJECT_SOURCE_DIR}/ecs/component/Component.cpp
@@ -58,29 +89,22 @@ add_executable(${PROJECT_NAME}
   ${PROJECT_SOURCE_DIR}/ecs/entity/Entity.cpp
 
   # Managers
-  #${PROJECT_SOURCE_DIR}/ecs/system/ComponentMgr.cpp
   ${PROJECT_SOURCE_DIR}/ecs/system/EntityMgr.cpp
 )
 
-#ADD_CUSTOM_TARGET(debug
-#  COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Debug ${CMAKE_SOURCE_DIR}
-#  COMMAND ${CMAKE_COMMAND} --build ${OUTPUT_DEBUG_PATH} --target all
-#  COMMENT "Switch CMAKE_BUILD_TYPE to Debug"
-#)
-#
-#ADD_CUSTOM_TARGET(release
-#  COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Release ${CMAKE_SOURCE_DIR}
-#  COMMAND ${CMAKE_COMMAND} --build ${OUTPUT_RELEASE_PATH} --target all
-#  COMMENT "Switch CMAKE_BUILD_TYPE to Release"
-#)
-#
-#ADD_CUSTOM_TARGET(all
-#  COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Debug ${CMAKE_SOURCE_DIR}
-#  COMMAND ${CMAKE_COMMAND} --build ${OUTPUT_DEBUG_PATH} --target all
-#  COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Release ${CMAKE_SOURCE_DIR}
-#  COMMAND ${CMAKE_COMMAND} --build ${OUTPUT_RELEASE_PATH} --target all
-#  COMMENT "Switch CMAKE_BUILD_TYPE to All"
-#)
+# OS specific before executable addition
+if(WINDOWS)
+#add_subdirectory(ASSIMP)
+#link_directories(${PROJECT_BINARY_DIR})
+endif(WINDOWS)
 
-#target_compile_features(${PROJECT_NAME} PRIVATE cxx_lambda_init_captures)
-#target_compile_definitions(${PROJECT_NAME} PRIVATE PROJECT_VERSION=${PROJECT_VERSION} BUILD_DEBUG=${BUILD_DEBUG})
+if(APPLE)
+	#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${GLEW_INCLUDE_DIRS}")
+endif(APPLE)
+
+if(LINUX)
+	#
+endif(LINUX)
+
+# File copy example
+#file(COPY  ${PROJECT_SOURCE_DIR}/libs/dll/glew32.dll DESTINATION ${PROJECT_BINARY_DIR})
