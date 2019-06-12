@@ -1,6 +1,7 @@
 //#include "../ecs/entity/Entity.hpp"
 #include "../ecs/system/EntityMgr.hpp"
 #include "../config/Config.hpp"
+#include "../util/Logging.hpp"
 
 #include <stdio.h>
 #include <iostream>
@@ -35,15 +36,15 @@ public:
 int main(int argc, char const *argv[])
 {
 	#if DEBUG
-		printf("DEBUG BUILD!\n");
+		LOG_INFO("DEBUG BUILD!");
 	#else
-		printf("RELEASE BUILD!\n");
+		LOG_INFO("RELEASE BUILD!");
 	#endif
 	#if defined(VERSION)
-		printf("Project version: %s\n", VERSION);
+		LOG_INFO(VERSION);
 	#endif
 	#if LOGGING
-		printf("Logging enabled!\n");
+		LOG_INFO("Logging enabled!");
 	#endif
 
 	ECS::EntityMgr entityMgr;
