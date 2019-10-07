@@ -40,6 +40,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 if(LINUX)
   set(CMAKE_GENERATOR "Unix Makefiles" CACHE INTERNAL "" FORCE)
 endif(LINUX)
+if (WINDOWS)
+  # Default compiler options
+endif(WINDOWS)
 
 # Set project name
 project(${PROJECT_NAME})
