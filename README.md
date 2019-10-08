@@ -15,8 +15,6 @@ Entity Component System.
 - (DISABLED!) Doxygen - http://www.stack.nl/~dimitri/doxygen/download.html
 
 ### Installation / Usage
-1. Install linux (supports only linux for now).
-
 2. From repository root, run:
 
    ```Shell
@@ -24,10 +22,22 @@ Entity Component System.
    ```
 
 
-3. Build the program: 
+3. Build the program (__LINUX__): 
+   
    ```Shell
    cmake .. && make
    ```
+   
+   Build the program (__WINDOWS__): 
+   
+   __NOTE: __ MinGW has to be installed at __C:/MinGW__ for now
+   
+   ```Shell
+   cmake .. && mingw32-make.exe
+   ```
+   
+   
+   
   4. Run the executable:
 
      ``` 
