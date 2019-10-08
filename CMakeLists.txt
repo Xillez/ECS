@@ -15,13 +15,17 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   message("Linux build")
   SET(LINUX 1)
   SET(APPLE 0)
+  SET(WINDOWS 0)
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   message("Mac build")
   SET(LINUX 0)
   SET(APPLE 1)
-elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+  SET(WINDOWS 0)
+elseif(WIN32)
   message("Windows build")
   SET(WINDOWS 1)
+  SET(LINUX 0)
+  SET(APPLE 0)
 endif()
 
 # Automatic setup of release and debug build setting
@@ -39,9 +43,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Set custom compiler
 if(LINUX)
   set(CMAKE_GENERATOR "Unix Makefiles" CACHE INTERNAL "" FORCE)
-endif(LINUX)
-if (WINDOWS)
-  # Default compiler options
+elseif (WINDOWS)
+  set(CMAKE_C_COMPILER "C:/MinGW/bin/gcc.exe")
+  set(CMAKE_CXX_COMPILER "C:/MinGW/bin/g++.exe")
 endif(WINDOWS)
 
 # Set project name
