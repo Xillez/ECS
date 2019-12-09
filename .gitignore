@@ -2,6 +2,7 @@
 
 # User defined ignores
 
+source/config/Config.hpp
 main.cpp
 main.zip
 .vscode/
