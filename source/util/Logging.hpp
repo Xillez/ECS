@@ -37,9 +37,18 @@ public:
      */
     static void Err(std::string msg, std::string callerName);
 
+    /**
+     * @brief Logs a message using the debug tag.
+     * 
+     * @param msg - string - The message to print.
+     * @param callerName - string - Name of caller function.
+     */
+    static void Debug(std::string msg, std::string callerName);
+
     static const std::string LOG_INFO;
     static const std::string LOG_WARN;
     static const std::string LOG_ERR;
+    static const std::string LOG_DEBUG;
 
 protected:
     //
@@ -50,3 +59,4 @@ private:
 #define LOG_INFO(msg) Log::Info((msg), __FUNCTION__)
 #define LOG_WARN(msg) Log::Warn((msg), __FUNCTION__)
 #define LOG_ERR(msg) Log::Err((msg), __FUNCTION__)
+#define LOG_DEBUG(msg) Log::Debug((msg), __FUNCTION__)

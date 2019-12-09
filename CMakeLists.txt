@@ -13,19 +13,22 @@ set(LOGGING "true")
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   message("Linux build")
-  SET(LINUX 1)
-  SET(APPLE 0)
-  SET(WINDOWS 0)
+  set(OS_NAME "LINUX")
+  set(LINUX 1)
+  set(APPLE 0)
+  set(WINDOWS 0)
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   message("Mac build")
-  SET(LINUX 0)
-  SET(APPLE 1)
-  SET(WINDOWS 0)
+  set(OS_NAME "DARWIN")
+  set(LINUX 0)
+  set(APPLE 1)
+  set(WINDOWS 0)
 elseif(WIN32)
   message("Windows build")
-  SET(WINDOWS 1)
-  SET(LINUX 0)
-  SET(APPLE 0)
+  set(OS_NAME "WIN32")
+  set(LINUX 0)
+  set(WINDOWS 1)
+  set(APPLE 0)
 endif()
 
 # Automatic setup of release and debug build setting
@@ -36,17 +39,10 @@ else()
   set(LOGGING "false")
 endif()
 
-# Set cmake options
+# Set cmake options + custom compiler
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-# Set custom compiler
-if(LINUX)
-  set(CMAKE_GENERATOR "Unix Makefiles" CACHE INTERNAL "" FORCE)
-elseif (WINDOWS)
-  set(CMAKE_C_COMPILER "C:/MinGW/bin/gcc.exe")
-  set(CMAKE_CXX_COMPILER "C:/MinGW/bin/g++.exe")
-endif(WINDOWS)
 
 # Set project name
 project(${PROJECT_NAME})
@@ -65,16 +61,13 @@ configure_file(
   @ONLY
   )
 
-#include_directories("${PROJECT_BINARY_DIR}")
-
 # OS specific before executable addition
 if(WINDOWS)
-#add_subdirectory(ASSIMP)
-#link_directories(${PROJECT_BINARY_DIR})
+  #
 endif(WINDOWS)
 
 if(APPLE)
-	#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${GLEW_INCLUDE_DIRS}")
+	#
 endif(APPLE)
 
 if(LINUX)
@@ -83,7 +76,7 @@ endif(LINUX)
 
 # Give files for building application
 add_executable(${PROJECT_NAME} 
-  #src
+  # src
   ${PROJECT_SOURCE_DIR}/src/main.cpp
   
   # Utillities
@@ -101,12 +94,32 @@ add_executable(${PROJECT_NAME}
 
 # OS specific before executable addition
 if(WINDOWS)
-#add_subdirectory(ASSIMP)
-#link_directories(${PROJECT_BINARY_DIR})
+  # check if Doxygen is installed
+  find_package(Doxygen)
+  if (DOXYGEN_FOUND)
+      # set input and output files
+      set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
+      set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+
+      # request to configure the file
+      configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+      message("Doxygen build started")
+
+      # note the option ALL which allows to build the docs together with the application
+      add_custom_target( doc_doxygen ALL
+          COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+          WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+          COMMENT "Generating API documentation with Doxygen"
+          VERBATIM )
+  else (DOXYGEN_FOUND)
+    message("Doxygen need to be installed to generate the doxygen documentation")
+  endif (DOXYGEN_FOUND)
+  #add_subdirectory(ASSIMP)
+  #link_directories(${PROJECT_BINARY_DIR})
 endif(WINDOWS)
 
 if(APPLE)
-	#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${GLEW_INCLUDE_DIRS}")
+	#
 endif(APPLE)
 
 if(LINUX)

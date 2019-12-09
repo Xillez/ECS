@@ -15,8 +15,6 @@
 #define DEFAULT_ENTITY_ID -1
 
 /* TODO:
-	- Make Entity EntityBase (maybe??)
-	- Make GameObject class extend EntityBase (maybe??)
 	- Implement PhysicsUpdate for physx compatibility.
  */
 

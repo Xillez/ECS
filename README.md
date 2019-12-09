@@ -28,15 +28,13 @@ Entity Component System.
    cmake .. && make
    ```
    
-   Build the program (__WINDOWS__): 
+   Build the program (__WINDOWS__ - __PowerShell__): 
    
-   __NOTE: __ MinGW has to be installed at __C:/MinGW__ for now
+   __NOTE: __ MinGW has to be first in PATH environment variables
    
    ```Shell
-   cmake .. && mingw32-make.exe
+   cmake ..; mingw32-make.exe
    ```
-   
-   
    
   4. Run the executable:
 

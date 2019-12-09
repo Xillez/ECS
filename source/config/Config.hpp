@@ -4,3 +4,4 @@
 #define VERSION "v0.1"
 #define DEBUG true
 #define LOGGING true
+#define OS_NAME WIN32
