@@ -1,2 +1,2 @@
 OUTPUT_DIRECTORY       = @CMAKE_CURRENT_BINARY_DIR@/bin/doc/
-INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/../src/ @CMAKE_CURRENT_SOURCE_DIR@/../docs
+INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/source/src @CMAKE_CURRENT_SOURCE_DIR@/source/util @CMAKE_CURRENT_SOURCE_DIR@/source/config @CMAKE_CURRENT_SOURCE_DIR@/source/ecs/system @CMAKE_CURRENT_SOURCE_DIR@/source/ecs/entity @CMAKE_CURRENT_SOURCE_DIR@/source/ecs/component @CMAKE_CURRENT_SOURCE_DIR@/source/ecs/component/transform @CMAKE_CURRENT_SOURCE_DIR@/docs
