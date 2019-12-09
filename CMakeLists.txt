@@ -11,24 +11,14 @@ set(DEBUG_BUILD "true")
 # "true" to enable logging or "false" to disable.
 set(LOGGING "true")
 
-if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+if(UNIX)
   message("Linux build")
-  set(OS_NAME "LINUX")
   set(LINUX 1)
-  set(APPLE 0)
-  set(WINDOWS 0)
-elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-  message("Mac build")
-  set(OS_NAME "DARWIN")
-  set(LINUX 0)
-  set(APPLE 1)
   set(WINDOWS 0)
 elseif(WIN32)
   message("Windows build")
-  set(OS_NAME "WIN32")
   set(LINUX 0)
   set(WINDOWS 1)
-  set(APPLE 0)
 endif()
 
 # Automatic setup of release and debug build setting
@@ -54,25 +44,21 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(PROJECT_SOURCE_DIR ${PROJECT_SOURCE_DIR}/source)
 set(CMAKE_SOURCE_DIR ${PROJECT_SOURCE_DIR})
 
+# OS specific before executable addition
+if(WINDOWS)
+  set(OS_NAME "WIN32")
+endif(WINDOWS)
+
+if(LINUX)
+  set(OS_NAME "LINUX")
+endif(LINUX)
+
 # Pass CMake settings to source header
 configure_file(
   "${PROJECT_SOURCE_DIR}/config/Config.hpp.in"
   "${PROJECT_SOURCE_DIR}/config/Config.hpp"
   @ONLY
   )
-
-# OS specific before executable addition
-if(WINDOWS)
-  #
-endif(WINDOWS)
-
-if(APPLE)
-	#
-endif(APPLE)
-
-if(LINUX)
-	#
-endif(LINUX)
 
 # Give files for building application
 add_executable(${PROJECT_NAME} 
@@ -92,6 +78,7 @@ add_executable(${PROJECT_NAME}
   ${PROJECT_SOURCE_DIR}/ecs/system/EntityMgr.cpp
 )
 
+# Inlcude 
 include(${CMAKE_CURRENT_SOURCE_DIR}/DoxygenLists.txt)
 
 # OS specific before executable addition
@@ -100,10 +87,6 @@ if(WINDOWS)
   #add_subdirectory(ASSIMP)
   #link_directories(${PROJECT_BINARY_DIR})
 endif(WINDOWS)
-
-if(APPLE)
-	#
-endif(APPLE)
 
 if(LINUX)
   execDoxygen()
