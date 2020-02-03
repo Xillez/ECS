@@ -16,7 +16,6 @@ const std::string Log::LOG_DEBUG = "DEBUG";
 //static
 void Log::Info(std::string msg)
 {
-    std::printf("TESTING TESTING YOU LITTLE PIECE OF %s", msg);
     if (LOGGING)
         std::printf("%s: %s\n", Log::LOG_INFO, msg);
 }
