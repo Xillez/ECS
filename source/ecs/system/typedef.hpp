@@ -4,6 +4,6 @@
  */
 namespace ECS
 {
-    typedef unsigned int EntityID;
-    typedef unsigned int ComponentID;
+    typedef unsigned int EntityID;      //!< EntityID used to identify entities. Types is Integer.
+    typedef unsigned int ComponentID;   //!< EntityID used to identify component. Types is Integer.
 }

@@ -12,13 +12,13 @@ ECS::EntityMgr::EntityMgr()
 void ECS::EntityMgr::Start()
 {
     for (auto& entity : this->entities)         // Run through every entity.
-        entity.second->Start();                  // Call start on entity.
+        entity.second->Start();                 // Call start on entity.
 }
 
-void ECS::EntityMgr::Update(/*float dt*/)
+void ECS::EntityMgr::Update()
 {
     for (auto& entity : this->entities)         // Run through every entity.
-        entity.second->Update();              // Call draw on entity.
+        entity.second->Update();                // Call draw on entity.
 }
 
 void ECS::EntityMgr::Draw()
@@ -35,8 +35,8 @@ ECS::Entity* ECS::EntityMgr::GetEntityByID(ECS::EntityID id)
 {
     // Has the given id been registered.
     if (std::find(this->entityIDs.begin(), this->entityIDs.end(), id) == this->entityIDs.end())
-        return nullptr;                             // Found nothing.
-    return this->entities[id];                      // Found entity.
+        return nullptr;                         // Found nothing.
+    return this->entities[id];                  // Found entity.
 }
 
 ECS::EntityID ECS::EntityMgr::GetEntityID(ECS::Entity* entity)

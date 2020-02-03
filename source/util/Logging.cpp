@@ -14,41 +14,30 @@ const std::string Log::LOG_ERR = "ERROR";
 const std::string Log::LOG_DEBUG = "DEBUG";
 
 //static
-void Log::Info(std::string msg, std::string callerName = "")
+void Log::Info(std::string msg)
 {
+    std::printf("TESTING TESTING YOU LITTLE PIECE OF %s", msg);
     if (LOGGING)
-        if (callerName != "")
-            printf("%s: %s - %s()", Log::LOG_INFO, msg, callerName);
-        else
-            printf("%s: %s", Log::LOG_INFO, msg);
+        std::printf("%s: %s\n", Log::LOG_INFO, msg);
 }
 
 //static
-void Log::Warn(std::string msg, std::string callerName = "")
+void Log::Warn(std::string msg)
 {
     if (LOGGING)
-        if (callerName != "")
-            printf("%s: %s - %s()", Log::LOG_WARN, msg, callerName);
-        else
-            printf("%s: %s", Log::LOG_WARN, msg);
+        std::printf("%s: %s\n", Log::LOG_WARN, msg);
 }
 
 //static
-void Log::Err(std::string msg, std::string callerName = "")
+void Log::Err(std::string msg)
 {
     if (LOGGING)
-        if (callerName != "")
-            printf("%s: %s - %s()", Log::LOG_ERR, msg, callerName);
-        else
-            printf("%s: %s", Log::LOG_ERR, msg);
+        std::printf("%s: %s\n", Log::LOG_ERR, msg);
 }
 
 //static
-void Log::Debug(std::string msg, std::string callerName = "")
+void Log::Debug(std::string msg)
 {
     if (LOGGING)
-        if (callerName != "")
-            printf("%s: %s - %s()", Log::LOG_DEBUG, msg, callerName);
-        else
-            printf("%s: %s", Log::LOG_DEBUG, msg);
+        std::printf("%s: %s\n", Log::LOG_DEBUG, msg);
 }

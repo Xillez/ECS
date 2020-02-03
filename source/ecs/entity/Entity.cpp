@@ -26,7 +26,6 @@ ECS::Entity::~Entity()
 //virtual
 void ECS::Entity::Start()
 {
-	//printf("Entity - Start()\n");
 	for (std::pair<const ECS::ComponentID, ECS::Component*>& comp : this->components)
 		comp.second->Start();
 }
@@ -34,7 +33,6 @@ void ECS::Entity::Start()
 //virtual
 void ECS::Entity::Update()
 {
-	//printf("Entity - Update()\n");
 	for (std::pair<const ECS::ComponentID, ECS::Component*>& comp : this->components)
 		comp.second->Update();
 }
@@ -48,16 +46,13 @@ void ECS::Entity::Update()
 //virtual
 void ECS::Entity::Draw()
 {
-	//printf("Entity - Draw()\n");
 	for (std::pair<const ECS::ComponentID, ECS::Component*>& comp : this->components)
 		comp.second->Draw();
-	//std::cout << "ECS::Entity " << this->ID << ", ClassName: " << this->GetClassName() << "!\n";
 }
 
 //virtual
 bool ECS::Entity::Destroy()
 {
-	//printf("Entity - Destroy()");
 	for (std::pair<const ECS::ComponentID, ECS::Component*>& comp : this->components)
 	{
 		comp.second->Destroy();

@@ -1,2 +1,8 @@
 OUTPUT_DIRECTORY       = @CMAKE_CURRENT_BINARY_DIR@/bin/doc/
-INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/source/src @CMAKE_CURRENT_SOURCE_DIR@/source/util @CMAKE_CURRENT_SOURCE_DIR@/source/config @CMAKE_CURRENT_SOURCE_DIR@/source/ecs/system @CMAKE_CURRENT_SOURCE_DIR@/source/ecs/entity @CMAKE_CURRENT_SOURCE_DIR@/source/ecs/component @CMAKE_CURRENT_SOURCE_DIR@/source/ecs/component/transform @CMAKE_CURRENT_SOURCE_DIR@/docs
+INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/source @CMAKE_CURRENT_SOURCE_DIR@/docs
+SEARCHENGINE           = YES
+GENERATE_LATEX         = NO
+RECURSIVE              = YES
+HAVE_DOT               = YES
+CALL_GRAPH             = YES
+UML_LOOK               = YES

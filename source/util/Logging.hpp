@@ -17,46 +17,39 @@ public:
      * @brief Logs a message using the info tag.
      * 
      * @param msg - string - The message to print.
-     * @param callerName - string - Name of caller function.
      */
-    static void Info(std::string msg, std::string callerName);
+    static void Info(std::string msg);
 
     /**
      * @brief Logs a message using the warn tag.
      * 
      * @param msg - string - The message to print.
-     * @param callerName - string - Name of caller function.
      */
-    static void Warn(std::string msg, std::string callerName);
+    static void Warn(std::string msg);
 
     /**
      * @brief Logs a message using the error tag.
      * 
      * @param msg - string - The message to print.
-     * @param callerName - string - Name of caller function.
      */
-    static void Err(std::string msg, std::string callerName);
+    static void Err(std::string msg);
 
     /**
      * @brief Logs a message using the debug tag.
      * 
      * @param msg - string - The message to print.
-     * @param callerName - string - Name of caller function.
      */
-    static void Debug(std::string msg, std::string callerName);
-
-    static const std::string LOG_INFO;
-    static const std::string LOG_WARN;
-    static const std::string LOG_ERR;
-    static const std::string LOG_DEBUG;
+    static void Debug(std::string msg);
 
 protected:
-    //
-private:
+    static const std::string LOG_INFO;  //!< Info tag used by logging
+    static const std::string LOG_WARN;  //!< Warning tag used by logging
+    static const std::string LOG_ERR;   //!< Error tag used by logging
+    static const std::string LOG_DEBUG; //!< Debug tag used by logging
     //
 };
 
-#define LOG_INFO(msg) Log::Info((msg), __FUNCTION__)
-#define LOG_WARN(msg) Log::Warn((msg), __FUNCTION__)
-#define LOG_ERR(msg) Log::Err((msg), __FUNCTION__)
-#define LOG_DEBUG(msg) Log::Debug((msg), __FUNCTION__)
+#define LOG_INFO(msg) Log::Info(msg);
+#define LOG_WARN(msg) Log::Warn(msg);
+#define LOG_ERR(msg) Log::Err(msg);
+#define LOG_DEBUG(msg) Log::Debug(msg);

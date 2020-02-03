@@ -36,16 +36,19 @@ public:
 int main(int argc, char const *argv[])
 {
 	#if DEBUG
-		LOG_INFO("DEBUG BUILD!");
+		LOG_INFO("DEBUG BUILD!")
 	#else
-		LOG_INFO("RELEASE BUILD!");
+		LOG_INFO("RELEASE BUILD!")
 	#endif
 	#if defined(VERSION)
 		LOG_INFO(VERSION);
 	#endif
 	#if LOGGING
-		LOG_INFO("Logging enabled!");
+		LOG_INFO("Logging enabled!")
 	#endif
+	/*#if OS_NAME
+		LOG_INFO("Logging enabled!")
+	#endif*/
 
 	ECS::EntityMgr entityMgr;
 
@@ -73,8 +76,6 @@ int main(int argc, char const *argv[])
 			printf("Component id: %d | ECS::EntityParent id: %d | Component class type: %s\n", comp->GetID(), comp->GetParentID(), comp->GetClassName().c_str());
 			printf("Component id: %d | ECS::EntityParent id: %d | Component class type: %s\n", comp2->GetID(), comp2->GetParentID(), comp2->GetClassName().c_str());
 		});*/
-
-		//printf("\n--------------------------------------------------------------\n");
 
 		entityMgr.Draw();
 

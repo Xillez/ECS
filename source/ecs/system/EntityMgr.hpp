@@ -40,10 +40,8 @@ namespace ECS
 
         /**
          * @brief Update all entities.
-         * 
-         * @param dt - How many seconds since last update/frame.
          */
-        void Update(/*float dt*/);
+        void Update();
 
         /**
          * @brief Draw all entities. 
@@ -105,8 +103,7 @@ namespace ECS
          */
         template<class Tclass>    
         std::vector<Entity> GetEntityByType();
-
-
+        
         /**
          * @brief Removes an entity by ID, all components without an owner gets removed aswell.
          * 
