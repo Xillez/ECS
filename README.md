@@ -30,7 +30,7 @@ Entity Component System.
    
    Build the program (__WINDOWS__ - __PowerShell__): 
    
-   __NOTE: __ MinGW has to be first in PATH environment variables
+   __NOTE:__ MinGW has to be first in PATH environment variables
    
    ```Shell
    cmake ..; mingw32-make.exe
