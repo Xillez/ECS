@@ -12,7 +12,7 @@ Entity Component System.
 
 - CMake - https://cmake.org/download/
 - Make - http://gnuwin32.sourceforge.net/packages/make.htm
-- (DISABLED!) Doxygen - http://www.stack.nl/~dimitri/doxygen/download.html
+- Doxygen - http://www.doxygen.nl/download.html
 
 ### Installation / Usage
 2. From repository root, run:
@@ -44,8 +44,11 @@ Entity Component System.
 
 ### Features: 
 
-- COMING
+- Entity component lifecycle
 
 ### TODO:
 
-- COMING
+- Scene graph integration with parenting
+- Threaded entities
+
+- Extendable entity and component lifecycle
