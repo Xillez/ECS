@@ -1,4 +1,4 @@
-# Graphics project framework
+# Entity Component System
 
 ### Author(s): ###
 
@@ -44,7 +44,7 @@ Entity Component System.
 
 ### Features: 
 
-- Entity component lifecycle
+- Entity component lifecycle (start, update, draw, destroy)
 
 ### TODO:
 
