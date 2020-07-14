@@ -2,6 +2,7 @@
 #include "../system/typedef.hpp"
 #include <algorithm>
 #include <type_traits>
+#include <typeinfo>
 #include <string>
 
 /**
