@@ -5,8 +5,6 @@
 #include <stdio.h>
 #include <cstdio>
 #include <stdlib.h>
-//#include <execinfo.h>
-#include <cxxabi.h>
 
 const std::string Log::LOG_INFO = "INFO";
 const std::string Log::LOG_WARN = "WARN";
