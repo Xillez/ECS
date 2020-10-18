@@ -8,7 +8,7 @@
 
 // ################################################################################################
 // #                                                                                              #
-// #                                             List                                             #
+// #                                           Injector                                           #
 // #                                                                                              #
 // ################################################################################################
 
@@ -18,7 +18,7 @@
 namespace ECS
 {
     /**
-     * @brief Injector class. Runtime injection of values to make connections. Reads ".imeta" xml files for solid connections connections.
+     * @brief Injector class. Runtime injection of values to make connections. Reads ".imeta" xml files for solid connections.
      */
     class Injector
     {
@@ -48,7 +48,7 @@ namespace ECS
          * @brief Makes an injection configuration file for object
          * @attention NOT IMPLEMENTED!!
          * 
-         * @tparam Ttype Type of object to make injection config file for.
+         * @tparam Ttype - Type of object to make injection config file for.
          * @param item - Ttype* - Runtime object with values to save. Default: nullptr.
          */
         template<class Ttype>
@@ -66,7 +66,7 @@ namespace ECS
          * 
          * @param obj - Object to inject into.
          * @param name - Name of a member variable in "obj".
-         * @param value Object to inject into "obj".
+         * @param value - Object to inject into "obj".
          * 
          * @return true - If injection was successful.
          * @return false - If injection was NOT successful.
