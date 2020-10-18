@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.10)
 set(PROJECT_NAME "ecs")
 set(VERSION "v0.1")
 
-# "true" to build for release or "false" to build for debug.
+# "true" to build for debug or "false" to build for release.
 set(DEBUG_BUILD "true")
 
 # "true" to enable logging or "false" to disable.
