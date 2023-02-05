@@ -1,8 +1,10 @@
-#include "../ecs/system/lists/List.hpp"
+#include "../lists/List.hpp"
 #include "../ecs/system/injector/Injector.hpp"
 #include "../ecs/system/EntityMgr.hpp"
+#include "../ecs/component/Component.hpp"
 #include "../config/Config.hpp"
 #include "../util/Logging.hpp"
+#include "../public/Public.hpp"
 
 #include <stdio.h>
 #include <iostream>
@@ -21,7 +23,7 @@ class TestComponent : public ECS::Component
 public:
 	TestComponent(ECS::ComponentID id) : ECS::Component(id)
 	{
-
+		//
 	};
 };
 
@@ -30,7 +32,7 @@ class TestComponent2 : public ECS::Component
 public:
 	TestComponent2(ECS::ComponentID id) : ECS::Component(id)
 	{
-
+		//
 	};
 };
 
@@ -47,21 +49,23 @@ int main(int argc, char const *argv[])
 	#if LOGGING
 		LOG_INFO("Logging enabled!")
 	#endif
-	/*#if OS_NAME
+	#if defined(OS_NAME)
 		LOG_INFO("Logging enabled!")
-	#endif*/
+	#endif
 
 	ECS::EntityMgr entityMgr;
 
 	for (int i = 0; i < 1; i++)
 	{
 		ECS::Entity* entity = entityMgr.GetEntityByID(entityMgr.CreateEntity<TestEntity>());
-		entity->CreateComponent<TestComponent>();
-		entity->CreateComponent<TestComponent>();
-		entity->CreateComponent<TestComponent>();
-		entity->CreateComponent<TestComponent2>();
-		entity->CreateComponent<TestComponent2>();
+		ECS::components.Add(entity->CreateComponent<TestComponent>());
+		ECS::components.Add(entity->CreateComponent<TestComponent>());
+		ECS::components.Add(entity->CreateComponent<TestComponent>());
+		ECS::components.Add(entity->CreateComponent<TestComponent2>());
+		ECS::components.Add(entity->CreateComponent<TestComponent2>());
 	}
+
+	std::cout << ECS::components.ToString() << std::endl << std::endl;
 
 	entityMgr.Start();
 

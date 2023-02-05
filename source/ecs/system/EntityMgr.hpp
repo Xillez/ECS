@@ -24,11 +24,6 @@ namespace ECS
     class EntityMgr
     {
     public:
-        /**
-         * @brief Constructor of EntityMgr.
-         */
-        EntityMgr();
-
         // ##########################################
         // ########## Life cycle functions ##########
         // ##########################################
@@ -36,17 +31,17 @@ namespace ECS
         /**
          * @brief Start all entities.
          */
-        void Start();
+        static void Start();
 
         /**
          * @brief Update all entities.
          */
-        void Update();
+        static void Update();
 
         /**
          * @brief Draw all entities. 
          */
-        void Draw();
+        static void Draw();
 
         // ##########################################
         // ########## Management functions ##########
@@ -60,7 +55,7 @@ namespace ECS
          * @return EntityID - The ID to the newly created entity.
          */
         template<class Tclass>       // In header because of cmake undefined error! DO NOT MOVE BACK!!
-        EntityID CreateEntity()
+        static EntityID CreateEntity()
         {
             if (!std::is_base_of<Entity, Tclass>::value)     // Class does NOT extend Entity.
             {
@@ -68,13 +63,23 @@ namespace ECS
                 return 0;
             }
 
-            EntityID tempID = this->NextID();       // Ready for next entity registration.
+            EntityID tempID = ECS::EntityMgr::NextID();       // Ready for next entity registration.
             Entity* temp = new Tclass(tempID);      // Make new Entity with new ID.
-            this->entityIDs.push_back(tempID);      // Add id.
-            this->entities[tempID] = temp;          // Save entity pointer.
+            ECS::entityIDs.push_back(tempID);      // Add id.
+            ECS::entities[tempID] = temp;          // Save entity pointer.
             temp = nullptr;
-            return this->entities[tempID]->GetID(); // Return the new entities id.
+            return ECS::entities[tempID]->GetID(); // Return the new entities id.
         }
+
+        /**
+         * @brief Checks to see if the ID exists.
+         * 
+         * @param id - EntityID - ID to check.
+         * 
+         * @return true - ID is valid.
+         * @return false - ID is NOT valid.
+         */
+        static bool ECS::EntityMgr::IsValidID(ECS::EntityID id);
 
         /**
          * @brief Get the Entity by ID.
@@ -83,7 +88,7 @@ namespace ECS
          * 
          * @return Entity* - Pointer to entity found. If nothing found, nullptr returned.
          */
-        Entity* GetEntityByID(EntityID id);
+        static Entity* GetEntityByID(EntityID id);
 
         /**
          * @brief Get the Entity ID.
@@ -92,7 +97,7 @@ namespace ECS
          * 
          * @return EntityID - ID of entity. 0 if not found.
          */
-        EntityID GetEntityID(Entity* entity);
+        static EntityID GetEntityID(Entity* entity);
 
         /**
          * @brief Get the Entity By Type
@@ -102,33 +107,34 @@ namespace ECS
          * @return std::vector<Entity> 
          */
         template<class Tclass>    
-        std::vector<Entity> GetEntityByType();
+        static std::vector<Entity> GetEntityByType();
         
         /**
          * @brief Removes an entity by ID, all components without an owner gets removed aswell.
          * 
          * @param id - ID of entity to be removed.
          */
-        void DestroyEntityByID(EntityID id);
+        static void DestroyEntityByID(EntityID id);
 
         /**
          * @brief Destroy an entity by id.
          */
-        void DestroyByID(EntityID id);
+        static void DestroyByID(EntityID id);
 
         /**
          * @brief Destroy by entity.
          * 
          * @param entity - Pointer to entity to be destroyed.
          */
-        void Destroy(Entity* entity);
+        static void Destroy(Entity* entity);
+
         /**
          * @brief Destroys all entities and readys for destruction.
          * 
          * @return true - All Entities was destroyed.
          * @return false - Failed to destroy entities. 
          */
-        bool DestroyAll();
+        static bool DestroyAll();
 
         // #######################################
         // ########## Utility functions ##########
@@ -139,7 +145,7 @@ namespace ECS
          * 
          * @param func - Function to call for each object. Function signature: void(*func)(EntityID, Entity*).
          */
-        void ForEachEntity(std::function<void(EntityID, Entity*)> func);
+        static void ForEachEntity(std::function<void(EntityID, Entity*)> func);
 
     protected:
         //
@@ -149,12 +155,12 @@ namespace ECS
          * 
          * @return EntityID (int) - ID of next entity to be added.
          */
-        EntityID NextID();
+        static EntityID NextID();
 
-        std::vector<EntityID> entityIDs;      //!< A vector of all entities registered.
-        std::unordered_map<EntityID, Entity*> entities;     //!< A unordered map mapping entities to ids.
+        //std::vector<EntityID> entityIDs;      //!< A vector of all entities registered.
+        //std::unordered_map<EntityID, Entity*> entities;     //!< A unordered map mapping entities to ids.
 
-        EntityID nextID = 0;
+        static EntityID nextID;
 
     
     protected:

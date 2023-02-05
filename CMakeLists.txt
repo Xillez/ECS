@@ -11,6 +11,10 @@ set(DEBUG_BUILD "true")
 # "true" to enable logging or "false" to disable.
 set(LOGGING "true")
 
+# The level to log messages at. 
+# Possible values: "INFO", "WARN", "ERROR", "DEBUG".
+set(LOGGING_LEVEL "{ \"INFO\", \"WARN\", \"ERROR\", \"DEBUG\" }")
+
 if(UNIX)
   message("Linux build")
   set(LINUX 1)

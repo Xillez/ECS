@@ -1,7 +1,8 @@
 #pragma once
-#include "../typedef.hpp"
+#include "../ecs/system/typedef.hpp"
 
 #include <vector>
+#include <string>
 #include <unordered_map>
 #include <functional>
 #include <algorithm>
@@ -33,7 +34,7 @@ namespace ECS
          */
         List()
         {
-            this->list = std::vector<Ttype>();
+            this->data = std::vector<Ttype*>();
         }
 
         // ##########################################
@@ -45,15 +46,14 @@ namespace ECS
          * 
          * @param item Item to be added.
          */
-        void AddItem(Ttype* item)
+        void Add(Ttype* item)
         {
             if (item != nullptr)            // If not nothing, add it.
-                this->list.push_back(item);
+                this->data.push_back(item);
         }
 
         /**
          * @brief Get the item by index.
-         * @attention NOT IMPLEMENTED!
          * 
          * @param index - Index of given item.
          * 
@@ -61,46 +61,73 @@ namespace ECS
          */
         Ttype* GetItemByIndex(int index)
         {
-            return nullptr;
+            return this->data.at(index);
         }
 
         /**
          * @brief Get the index and item is stored.
-         * @attention NOT IMPLEMENTED!
          * 
-         * @param item - Item to get index of.
+         * @param item - Ttype - Item to get index of.
          * 
          * @return int - Index of item. Negative if not found.
          */
         int GetItemIndex(Ttype* item)
         {
-            return 0;
+            for (int i = 0; i < this->data.size(); i++)
+                if (this->data.at(i))
+                    return i;
+
+            return -1;
         }
 
         /**
          * @brief Get the item by type
-         * @attention NOT IMPLEMENTED!
          * 
          * @tparam Tclass - Class/Type to check for.
          * 
          * @return A std::vector of specified type if found.
          */
         template<class Tclass>
-        std::vector<Ttype*> GetItemByType()
+        Ttype* GetItemByType()
         {
-            return std::vector<Ttype*>();
+            for (int i = 0; i < this->data.size(); i++)
+                if (typeid((*this->data.at(i))) == typeid(Tclass))
+                    return this->data.at(i);
+
+            return nullptr;
+        }
+
+        /**
+         * @brief Get the item by type
+         * 
+         * @tparam Tclass - Class/Type to check for.
+         * 
+         * @return A std::vector of specified type if found.
+         */
+        template<class Tclass>
+        std::vector<Ttype*> GetItemsByType()
+        {
+            std::vector<Ttype*> temp = std::vector<Ttype*>();
+
+            for (int i = 0; i < this->data.size(); i++)
+                if (typeid((*this->data.at(i))) == typeid(Tclass))
+                    temp.push_back();
+
+            return temp;
         }
 
         /**
          * @brief Removes an item by index.
-         * @attention NOT IMPLEMENTED!
          * 
          * @param index Index to be removed.
          *
          */
         void RemoveByIndex(int index)
         {
-            //
+            if (index < 0 || index >= this->data.size())
+                return;
+
+            this->data.erase(this->data.begin() + index);
         }
 
         /**
@@ -112,11 +139,11 @@ namespace ECS
         {
             if (item == nullptr)    // List is supposed to be cleared.
             {
-                this->list.clear();
+                this->data.clear();
                 return;
             }
 
-            this->list.erase(std::find(this->list.begin(), this->list.end(), item));    // Erase if it exists.
+            this->data.erase(std::find(this->data.begin(), this->data.end(), item));    // Erase if it exists.
         }
 
         // #######################################
@@ -124,16 +151,26 @@ namespace ECS
         // #######################################
 
         /**
-         * @brief A built-in ForEach loop calling given function for every item registered (with its respective index).
+         * @brief Calls the given function for every item registered with its respective index.
          * 
          * @param func - Function to call for each item. Function signature: void(*func)(int, Ttype*).
          */
-        void ForEachItem(std::function<void(int, Ttype*)> func)
+        void ForEach(std::function<void(int, Ttype*)> func)
         {
             for (int i = 0; i < this->data.size(); i++)
-            {
                 func(i, this->data[i]);
-            }
+        }
+
+        /**
+         * @brief Calls the given function for every item registered with its respective index. Quits if "func" returns true.
+         * 
+         * @param func - Function to call for each item. Function signature: bool(*func)(int, Ttype*).
+         */
+        void Some(std::function<bool(int, Ttype*)> func)
+        {
+            for (int i = 0; i < this->data.size(); i++)
+                if (func(i, this->data.at(i)))
+                    return;
         }
 
         /**
@@ -146,9 +183,29 @@ namespace ECS
             return this->data;
         }
 
+        /**
+         * @brief Converts the list to string.
+         * 
+         * @return - string - The list in string form.
+         * TODO: Make it print the content of the objects instead of its type.
+         */
+        std::string ToString()
+        {
+            std::string str = "{ ";
+
+            for (int i = 0; i < this->data.size(); i++)
+            {
+                str.append(typeid(this->data.at(i)).name());
+                if (i != this->data.size() - 1)
+                    str.append(", ");
+            }
+
+            return str.append(" }");
+        }
+
     protected:
         //
     private:
-        std::vector<Ttype*> list;      //!< A vector of all registered items.
+        std::vector<Ttype*> data;      //!< A vector of all registered items.
     };
 }

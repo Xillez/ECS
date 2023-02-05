@@ -4,4 +4,5 @@
 #cmakedefine VERSION "@VERSION@"
 #define DEBUG @DEBUG_BUILD@
 #define LOGGING @LOGGING@
-//#define OS_NAME "@OS_NAME@"
+#define LOGGING_LEVEL @LOGGING_LEVEL@
+#define OS_NAME @OS_NAME@
