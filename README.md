@@ -1,4 +1,4 @@
-# Entity Component System
+# Entity Component System (WIP)
 
 ### Author(s): ###
 
@@ -49,6 +49,4 @@ Entity Component System.
 ### TODO:
 
 - Scene graph integration with parenting
-- Threaded entities
-
 - Extendable entity and component lifecycle
