@@ -1,5 +1,7 @@
 # Entity Component System (WIP)
 
+# Deprecated: Development continues in https://github.com/Xillez/gameengine
+
 ### Author(s): ###
 
 - Xillez - kent.wincent46@gmail.com
